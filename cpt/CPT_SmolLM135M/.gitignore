@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+
+# Data & outputs
+models/*
+papers/*
+*.txt
+*.jsonl
+*.json
+*.csv
+data/
+evals/
+
+# Experiment tracking — keep these
+!experiments.json
+!experiments.md
+
+# Env
+.envrc
+.env

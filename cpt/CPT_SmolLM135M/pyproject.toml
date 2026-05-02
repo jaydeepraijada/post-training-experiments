@@ -1,0 +1,23 @@
+[project]
+name = "cpt-smollm135m"
+version = "0.1.0"
+description = "Continued pre-training experiments on SmolLM-135M"
+requires-python = ">=3.12"
+dependencies = [
+    "arxiv>=2.4.0",
+    "absl-py>=2.4.0",
+    "bert-score>=0.3.13",
+    "datasets>=3.6",
+    "evaluate>=0.4.6",
+    "peft>=0.18.1",
+    "pypdf>=6.6.2",
+    "rich>=14.3.2",
+    "rouge-score>=0.1.2",
+    "sacrebleu>=2.6.0",
+    "torch>=2.7",
+    "transformers>=4.57.6",
+    "trl>=0.24.0",
+    "unsloth>=2026.1.4",
+    "requests>=2.32",
+    "wandb>=0.19",
+]
