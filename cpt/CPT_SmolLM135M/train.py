@@ -42,10 +42,10 @@ def main():
 
     if args.mix:
         print("Mixing in 20% scientific_papers arxiv data...")
-        general_data = load_dataset("scientific_papers", "arxiv", split="train")
+        general_data = load_dataset("allenai/peS2o", split="train", trust_remote_code=True)
 
         def normalize_schema(example):
-            return {"text": example.get("article", "") or example.get("text", "")}
+            return {"text": example.get("text", "") or example.get("article", "")}
 
         general_data = general_data.map(normalize_schema, remove_columns=general_data.column_names)
         hf_ratio = 1.0 - args.mix_ratio
