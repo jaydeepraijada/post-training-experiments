@@ -161,7 +161,7 @@ def main():
         model, tokenizer = FastLanguageModel.from_pretrained(
             model_name=args.base_model_id,
             max_seq_length=args.max_seq_length,
-            load_in_4bit=True,
+            load_in_4bit=not args.full_training,
             full_finetuning=args.full_training,
         )
 
