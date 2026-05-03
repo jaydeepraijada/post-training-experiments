@@ -32,21 +32,50 @@ A running log of insights, surprises, and reasoning behind each experiment decis
 - ROUGE scores are low (0.21 / 0.14) but expected for open-ended scientific text generation
 - BERTScore 0.75 is reasonable for a 135M model
 
-**Open question:** No base model baseline yet — can't tell how much CPT actually helped until `results_base_model.json` is compared.
-
 **What this tells us:**
-- The model is learning something — perplexity of 18.36 on held-out ML papers
+- CPT is working — perplexity dropped 20% vs base model (22.97 → 18.36)
+- Every metric improved over base: ROUGE-1 +0.036, BERTScore +0.017, Cross-Entropy -0.224
 - The plateau around 2.845 eval loss may be the capacity ceiling for r=32 LoRA on this dataset size
 - Low ROUGE may just reflect the nature of scientific text generation (high vocabulary diversity)
 
 ---
 
+### base_model (HuggingFaceTB/SmolLM-135M — no fine-tuning)
+
+| Metric | Value |
+|---|---|
+| Perplexity | 22.97 |
+| Cross-Entropy | 3.134 |
+| ROUGE-1 | 0.1778 |
+| ROUGE-L | 0.1136 |
+| BERTScore F1 | 0.7361 |
+
+This is the reference point for all experiments. Any run that doesn't beat this across all metrics is a failure.
+
+---
+
+### exp01_full_ft (Full fine-tuning — BROKEN, 4-bit)
+
+| Metric | Value |
+|---|---|
+| Perplexity | 22.91 |
+| Cross-Entropy | 3.131 |
+| ROUGE-1 | 0.1775 |
+| BERTScore F1 | 0.7344 |
+
+**Result: Essentially identical to base model — CPT did nothing.**
+
+**Root cause:** Unsloth's `full_finetuning=True` with `load_in_4bit=True` corrupts weight updates — gradients flow through quantized weights but updates get re-quantized after each step, severely limiting learning. Train runtime was 43 min but model barely moved.
+
+**Fix:** Load in bf16 when `--full_training` is set (`load_in_4bit = not args.full_training`). Rerunning as `exp01_full_ft_bf16`.
+
+---
+
 ## Hypotheses for Upcoming Experiments
 
-### exp01_full_ft (Full fine-tuning)
-**Hypothesis:** Training all 135M parameters (vs ~9.7M with LoRA r=32) should allow the model to absorb domain knowledge more deeply. Expect lower perplexity but risk of more catastrophic forgetting of general language ability.
-- lr=1e-5 (vs 2e-4 for LoRA) to be conservative
-- NEFTune noise added for regularisation
+### exp01_full_ft_bf16 (Full fine-tuning — fixed)
+**Hypothesis:** With bf16 (no quantization), weight updates are lossless. Expect significantly lower perplexity than LoRA r=32. Risk: slower training (~45 min), higher VRAM, and potential catastrophic forgetting since all 135M params are updated.
+- lr=1e-5, NEFTune noise=5, max_grad_norm=0.7
 
 ### exp03_lora_r8 / r16 (LoRA rank sweep)
 **Hypothesis:** Lower rank = more regularisation = potentially better generalisation on small dataset (138 papers). r=8 might outperform r=32 if r=32 is slightly overfitting to the training distribution.
@@ -64,7 +93,8 @@ A running log of insights, surprises, and reasoning behind each experiment decis
 
 ## Questions to Answer as Results Come In
 
-1. How much does CPT help vs base model? (waiting on base model baseline)
-2. Does full fine-tuning beat LoRA, and at what cost (forgetting)?
-3. Is the eval loss plateau a dataset size problem or a model capacity problem?
+1. ~~How much does CPT help vs base model?~~ **Answered: 20% perplexity drop, all metrics improve.**
+2. Does full fine-tuning (bf16) beat LoRA? (running now as exp01_full_ft_bf16)
+3. Is the eval loss plateau a dataset size problem or a model capacity problem? (exp04/05 will test)
 4. Do ROUGE/BERTScore correlate with perplexity improvements, or diverge?
+5. Does lower LoRA rank (r=8/16) generalise better on this small dataset?
