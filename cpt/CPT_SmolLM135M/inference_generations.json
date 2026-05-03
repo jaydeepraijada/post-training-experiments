@@ -1,0 +1,402 @@
+[
+    {
+        "id": 0,
+        "prefix": "ensure that the set is contained in the closed Wasserstein ball B\u03b5\u2217(\u03f10). We will show that \u0393 \u03b5\u2217(\u03f10) is \u03ba-stabilizable,",
+        "ground_truth": "if \u03b5\u2217 is sufficiently small. 1.1. Main result. In this section, we state the key assumptions and the main results. We first precisely state the assumptions imposed on the vector field V , the initial measure \u03f10 and on the action set \u03c9. TRAJECTORY STABILIZATION OF NONLOCAL CONTINUITY EQUATIONS 5",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "which means that it has a unique minimizer \u03c80 \u2208 H 0,\u03b3 satisfying \u03d5 (\u03c60 ) = \u03c61 + \u00b7 \u00b7 \u00b7+\u03c62 \u03b5 , where \u03b5 > 0 depends on \u03b5. In order to prove this statement, we need to consider the following two cases: \u2022 If \u03b5 \u2a7d \u02dc\u03a3"
+        }
+    },
+    {
+        "id": 1,
+        "prefix": "highly desirable to characterize more supervision signals from data for a better disentanglement. The other isonce the user intents are",
+        "ground_truth": "discovered, how to es- tablish the behavior distribution over user intents? As shown in Figure 1, user 1 pays more attention to popularity than taste towards item 1. Thus, modeling behavior distribution can describe the strength of different user intentions, which un- derstands user preference more accurately, i.e., we can",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "not as clear, e.g., if we want to know whether an object has been moved or what its position and orientation were before it was observed [32]. In this case, the user\u2019s actions can be captured by the image features of the robot arm during each observation in order to predict which action should be taken next based on the previous one. 4"
+        }
+    },
+    {
+        "id": 2,
+        "prefix": "Growth Dynamics The data in this study have been expressed as mean values \u00b1 standard deviation (S.D.). Data were analyzed",
+        "ground_truth": "with IBM \u00ae SPSS\u00ae version 29.0 (Armonk, NY: IBM Corp) for significance using one- way analysis of variance (ANOVA), followed by the Duncan\u2019s multiple range test (DMRT) for contrasting differences. A significance level of \ud835\udc91\ud835\udc93< 0.05 was considered significant, unless otherwise specified, where \ud835\udc91\ud835\udc93 defines the probability and determines the",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "using the Kolmogorov-Smirnov test for categorical variables and the Kullback\u2013Leibler test for continuous variables, with a significance level of p = 0 .05. For continuous variables, the Kullback\u2013Leibler test was used to determine whether there is significant difference between two distributions. The results are presented by means of"
+        }
+    },
+    {
+        "id": 3,
+        "prefix": "a positional accuracy within 320\u00b130mm and easily can become lower to 100\u00b125mm [4]. 2.3 Application Figure 4: Cube augmented with",
+        "ground_truth": "projection and recognition boundary For the system application, interactive MR performance involving puzzle element was created with 3 props - or \u2018cubes\u2019 and using Unity. Each cube contains a Pozyx tag inside the acrylics and wooden body for position tracking. Contrast to the vive tracker, these tags were able to",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "the new 7b camera in the background, showing the final image of the system. The red circle represents the system\u2019s state at time t = 6 seconds after the camera capture. The blue circle shows the system\u2019s state at time t = 9 minutes after the camera capture. 8 Fig. 4(d) shows the position of the camera"
+        }
+    },
+    {
+        "id": 4,
+        "prefix": "the presence of a Coulomb potential and an Aharonov-Bohm \ufb02ux \ufb01eld in c osmic string and point-like global monopole space-times.",
+        "ground_truth": "As a natural extension of t hese previous works, we direct our attention to the quantum dynamics of scalar bosons thr ough the generalized DKP oscillator, embedded in the background of a cosmic string space-tim e, while considering the in\ufb02uence of a quantum \ufb02ux \ufb01eld. Subsequently, we also investigate t",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "This is achieved by using the method of the non-commutative geometry of the \ufb01eld of con\ufb01nement, which allows one to obtain a non-trivial de\ufb01nition for the Aharonian bosonic \ufb01elds. The \ufb01rst step involves the construction of a new metric on the space of con\ufb01guration of the string \ufb01eld,"
+        }
+    },
+    {
+        "id": 5,
+        "prefix": "and finally reduced at 350 oC under flowing 5% H2/Ar for 1 h. The bimetallic Au-Pd catalyst with nominal Au:Pd",
+        "ground_truth": "ratio of 1:1 w as prepared using simultaneous deposition-precipitation method [12]. PdCl 2 was dissolved in a 1 M HCl solution and then mixed wit h the aqueous solution of HAuCl 4. The HAuCl 4 concentration was 3.2 mM. Using a liquid pump, the mixture of t he HAuCl4 and",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "ratio of 98%, was used as the carrier gas in the experiment, and the temperature range from 6 to 47 K is selected by using a 1 mK reference temperature. The experimental conditions are shown in Table I . The results show that the catalytic activity of the Au-Pd catalyst can be further enhanced through the addition of 5% H"
+        }
+    },
+    {
+        "id": 6,
+        "prefix": "For a UEI network there is no restriction on the tail node-type for AE arrows and AI arrows. The adjacency",
+        "ground_truth": "matrices are therefore (3.12) Node-type N E: A1 = \u0014 1 0 0 0 \u0015 ; Node-type N I: A2 = \u0014 0 0 0 1 \u0015 ; Arrow-type AE: A3 = \u0014 \u03b11 \u03b22 \u03b21 \u03b12 \u0015 ; Arrow-type AI: A4 = \u0014 \u03b41 \u03b32 \u03b31 \u03b42 \u0015 ;",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "matrix of an EIC can be obtained by computing the sum of all the entries in the diagonals, as follows: A = \u2211 i1i2i3\u2208Eic 4 + \u2211 i1i2i\u2212 1\u2264ei\u2264inoids+ij\u22a5 (5) where Ic denotes the set of vertices connected to"
+        }
+    },
+    {
+        "id": 7,
+        "prefix": "subspace containing reachable states and the impact of changing leader agents. These inquiries provide insights into the underlying graph structure",
+        "ground_truth": "and guide the derivation of network controllability metrics for graph embeddings. B. Network Controllability Metrics The process of controlling a network entails the respon- sibility of directing it from an initial state to a desired final state by applying control inputs to specific leader nodes within the network. A state",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": ", which is crucial for understanding the dynamics of the system\u2019s behavior in various scenarios. 3 Main contributions In this paper we present a novel approach to studying the dynamics of a class of random graphs that are characterized by the presence of multiple leaders or edges with different degrees of dominance within a finite set of vertices. The key insight lies in the use of a hierarchical structure where"
+        }
+    },
+    {
+        "id": 8,
+        "prefix": "is completely identi\ufb01ed by a \ufb01bered natural transformation \u03b1 : p \u21d2 q; if this is the case and if",
+        "ground_truth": "confusion is not likely to arise, we will just write \u03b1 : (p, P ) \u2192 (q, P ). Proposition 5. For every morphism of pointed \ufb01brations \u03b1 : ( p, P ) \u2192 (q, P ) the following facts hold: (i) for every object (I, x : X \u2192",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "p \u2208 Z, then we have that \u03b1(q) = q. We now show that the following result for the case of p > q: Theorem 2.10 (Theorem 1). Let p be an even integer with p < q /\u2208 N. Then there exists a prime power p/\u2208 N such that for any integers"
+        }
+    },
+    {
+        "id": 9,
+        "prefix": "= vj \u2208 V : (vj, vi) \u2208 E. The distance between ver- tices vi and vj, denoted as d(vi,",
+        "ground_truth": "vj), represents the shortest path length between them. The transpose of a matrix X is denoted as X T . An N-dimensional vector with all its entries set to zero is represented as 0N , and a vector with all its entries set to 1 is denoted as 1N .",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "vj), is called the distance of a pair in V . In particular, if V \u2282 R is finite set of vertices are connected by edges such that every edge connects two distinct vertices. We say that two sets of vertices in V have been disjointly linearizable when they satisfy the following conditions: \u2022 If V = V \u2032 for some subset S\ufffd"
+        }
+    },
+    {
+        "id": 10,
+        "prefix": "bk) \u2208 R\u2206d, (6) where \u2225 means the concatenation of two embeddings, g(k) b is the behavior projection head that",
+        "ground_truth": "maps the combination to the kth intent spaces, and ze,k indicates the kth intent. Anal- ogously, Eq. (6) is also applied to calculate all remaining in- tents via separatly projection heads in gb(\u00b7) = n g(k) b (\u00b7) oK k=1 . The final disentangled behavior representation can be ob- tained",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "maps a sequence of vectors in B \u2192 B to a vector in D. The goal of this paper is to propose a new method for learning a graph-theoretic intuition about the structure of the space of functions on B and their derivatives at the edges dk , which can be used as an intuitive guide when dealing with the problem of generating a large set of inductive definitions"
+        }
+    },
+    {
+        "id": 11,
+        "prefix": "\u03b7a\u03f5a + \u03b7b\u03f5b\u0001 \u0001 \u2212 \u221a 3 2 \u03c72(\u03b7a\u03f5a \u2212 \u03b7b\u03f5b), (3) IIIIa = \u0000 \u03be1\u03b7b\u03f5c + \u03be2\u03b7c\u03f5a + \u03be3\u03b7a\u03f5b\u0001",
+        "ground_truth": ", (4) and, IIIIb = \u0000 \u03be1\u03b7c\u03f5b + \u03be2\u03b7a\u03f5c + \u03be3\u03b7b\u03f5a\u0001 . (5) II, IIIa, and IIIb are symmetric under exchange of A\u2019 and B sublattice magnetic order parameters, i.e. \u03b7i \u2194 \u03f5i, while (IIIIa + IIIIb) and (IIIIa \u2212 IIIIb) are symmetric and antisymmetric, respectively. One can show that",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "\u0001 \u2212 \u221a 3 2 \u03c72(\u03b7a\u03f5a \u2212 \u03b7b\u03f5b). (4) IV a =  \u03be1\u03b7b\u03f5c + \u03be2\u03b7c\u03f5a + \u03be3\u03b7a\u03f5b. (5) The first two terms are the same as in the first"
+        }
+    },
+    {
+        "id": 12,
+        "prefix": "non-resonant vectors de\ufb01ned as \u039b := {\u2113 \u2208 ZZ : \u03c9 \u00b7\u2113 \u0338\u2261 0, 0< |\u2113|< +\u221e} ; (1.11) \u2022",
+        "ground_truth": "for the result to be meaningful, those bounds must be satis\ufb01e d by a positive measure set of frequencies. Therefore, measuring the set of \u201cgood frequencies\u201d becomes a key point. In the \ufb01nite dimensional case, i.e. if \u2113 \u2208 Zd,d \u2265 1, a classical assumption is to require that the",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "The vector \u03bd is a non-zero scalar \ufb01ber and satis fies that \u03bd = \uf8eb \uf8ed \u02d9N \u23d0\u2375a\u03d1(\u03bd ) \u02c6N \u23d0\u22a4 N \u23d0\u22a4 \u02c7F \u23d0\u22a5 \u2280 \ufffd"
+        }
+    },
+    {
+        "id": 13,
+        "prefix": ":= \u22c3 \u2113\u2208 \u039b,a \u2208 Z B(\u2113,a ). In view of (2.1) we have that Theorem 2.1 follows by setting",
+        "ground_truth": "Q := [1, 2] \\ B and provided that B satis\ufb01es the estimate |B|\u2272\u03b3. In order to prove this we \ufb01rst need the following. Lemma 2.4. F or any \ufb01xed\u2113 \u2208 \u039b we have that B(\u2113,a ) \u0338= \u2205 implies that |a| \u2264 k(\u2113) := 2 \u220f i\u2208 Z (1",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "a = 0 and using the fact that \u27e8\u03b5r\u27e9 is bounded in \u2113 . We also use the following result for the convex hulls of \u210an \u2212 1 n\u2113[\u2113] : Assumption A [35]. Let V be a vector space over Fq , Rp, q being an algebra"
+        }
+    },
+    {
+        "id": 14,
+        "prefix": "challenges, quests, and user data from Gamekins, as well as transmit data to it. The Gamekins IntelliJ plugin tab encompasses",
+        "ground_truth": "various pages presenting all the information and gami- fication elements generated and provided byGamekins, along with the buttons on the bottom to change between these pages (Fig. 1). 3.1 Challenges All challenges are visible in the Gamekins IntelliJ plugin, with the availability of different information and actions based on the",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "the following components: 1) a game-specific intelliguistic model that is trained on the game\u2019s dataset; 2) an API for interacting with the underlying intelligen dic framework (GameplayAPI); 3) a general interface for accessing other services in the Framework such as the GamePlayService or the GameState Service; 4"
+        }
+    },
+    {
+        "id": 15,
+        "prefix": "remain significant down to altitudes corresponding to\u223c10 mbar. Given the complex nature of the atmospheric model used, we verify our",
+        "ground_truth": "findings by carrying out an additional retrieval using the UltraNest nested sampling algorithm as the final step in our retrieval cascade, as described in section 2.6. We obtain chemical constraints that are in good agreement with those obtained with MultiNest. For H2O, CO, CO2 and H2S, we find thatlog(\ud835\udeffH2O) =",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "results by comparing the results with the ones reported in [26]. The results are presented as a comparison between the results from the two models and the ones obtained using the same model but at different altitudes (\u223c 500 km). We note that the results for the model employed in the present work differ significantly from the ones reported in [3], which is likely"
+        }
+    },
+    {
+        "id": 16,
+        "prefix": "second level of isolation by mov- ing the vswitch, deployed into the vswitch VM, to the user space. Hence, at",
+        "ground_truth": "least two independent security mechanisms need to fail (user-kernel separation and VM-isolation) for the untrusted tenant code to gain access to the Host. Interestingly, we are able to show the resultant secure vswitch design, which we call the single vswitch VM de- sign, does not come at the cost of",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "each level of isolation, we can use a single VM for all three levels and then execute the same command on every VMs in the stack (i.e., from the top to the bottom). This is called a \u201cstackful\u201d environment. The next step involves creating an instance of the VMs that will be used as the root VMs within the stack: this"
+        }
+    },
+    {
+        "id": 17,
+        "prefix": "The Douban book dataset is ex- tracted from a Chinese book forum 7. The rating scale in all datasets ranges",
+        "ground_truth": "from 1 to 5. For the ranking task, we discretize the ratings into binary values of 0 and 1 to indicate whether the user has interacted with the item or not. To ensure data quality and address sparsity issues, we apply filtering criteria to remove records with insufficient interactions. For",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "between 0 and 1, with the highest value being assigned to the most repre sentant (the highest score). We also use the same rating scale for the French book dataset as we did for the DouBan dataset. 3) Evaluation metrics In this section, we evaluate the performance of our method on four evaluation metrics: F1-score, Precision, Recall"
+        }
+    },
+    {
+        "id": 18,
+        "prefix": "defaulting on a loan. WoE encoding can also be applied to numerical variables, by \ufb01rst discretizing them through binning process.",
+        "ground_truth": "It does not embed a binning strategy, hence it must be explicitly de\ufb01ned and integrated within the data encoding. Several binning techniques have been devised, such as equal-width or equal-size, however, not all of them guarantee the necessary conditions for good binning in credit scoring (Zeng, 2014): \u2022 missing values",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "Then, the corresponding embedding is fed into an LSTM-based encoder for each variable and stored in a memory. The advantage of this approach lies in its simplicity: it does not require any additional training or inference steps; instead, we simply feed the data into the encoder with fixed parameters and then use the embedded features as input to LSTMs during back-propagation."
+        }
+    },
+    {
+        "id": 19,
+        "prefix": "an adversarial perturbation (off-manifold) exists as a function of orthogonal weights when an observation \u02dcx strictly resides in a d",
+        "ground_truth": "dimensional lin- ear subspace of a D dimensional Euclidean space (di- mension gap g = D \u2212 d). The \u21132 strength of this off-manifold perturbation in our notation can be ex- pressed as O \u0010 N(\u02dcx) q D g \u0011 up to some constants. Here, N(\u00b7) represents their two-layer ReLU",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "-dimensional subspace spanned by the off-manifolds \u02d9z, z \u2208 \u2126. This property is particularly relevant for the case where the domain of interest lies outside the set {0}. In this paper we study the behavior of such perturbations on the manifold Mp , which are defined to be the set of all points x1, . ."
+        }
+    },
+    {
+        "id": 20,
+        "prefix": "represents the classi\ufb01cation. The algorithm works by recursively partitioning the dataset, based on the feature that best splits the data",
+        "ground_truth": "at each node, until a stopping criterion is reached. The last model category introduced is DL, which through neural networks outperformed in several ar- Preprocessing Manual feature removal WoE data encodiding Split Raw data TestProce. data ValTrain Risk evaluation Testing Financial expert evalutation Compute metrics NSGA-II optimization Generate genes Training",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "set into two subsets: 1) the original subset with all features in order to select the top- k features; and 2) the selected subset of the original data set containing only the top k features. In this way, we can obtain a new feature selection strategy for each category or group (e.g., product type). We then use the feature selection strategies"
+        }
+    },
+    {
+        "id": 21,
+        "prefix": "formation on those cluster embeddings and outputs a set of concept-aware semantic bases as follows: ZB = gs(S\u22a4Zc) \u2208 RK\u00d7\u2206d,",
+        "ground_truth": "(5) where \u2206d = d/K, and ZB = {bk}K k=1, each of which cor- responds to a different semantic space, then they serve as se- mantic guidance and are combined with the behavior embed- ding to facilitate disentangling meaningful intent: ze,k = g(k) b (ze \u2225 bk) \u2208 R\u2206d, (6)",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "where s is the number of concepts in the embedding space. The semantic base for each cluster is defined by the sum of the values of all terms from the corresponding image. For example, if the image contains 10 images with the same category, then the semantic base will be [\u201ccat\u201d, \u201cdog\u201d]. We also use the same method to extract the semantic information"
+        }
+    },
+    {
+        "id": 22,
+        "prefix": "featuring MR systems, spans an area of 1042cm in width and 1044cm in depth, affording ample space for performers, which",
+        "ground_truth": "is vital for natural interaction [3]. It is equipped with two 4K projectors for front and floor projection - Christie Mirage 304K and Boxer 4K30, both offering brightness of 30,000 center lumens, ensuring a vibrant and immersive experience. 2.2 Tracking System Design The UWB system was constructed using the Pozyx",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "are typically located at the base or top of the structure. The system is composed of a series of cylindrical resonators (resonating LC circuits) that resonate when connected to each other by a coupling resistor R = \u03c9c(\u03c9l). When two resonator-connected resonators vibrate together with frequency f , they can induce a voltage drop across a capacitor C \ufffd"
+        }
+    },
+    {
+        "id": 23,
+        "prefix": "systems (CMS) such as Open- Stack; this way we can conduct self-contained experiments without the possible interference cause by a",
+        "ground_truth": "CMS. Our framework is written in Python and currently supports OvS and ovs-DPDK as the base virtual switch, Mellanox NIC, and the libvirt virtualization framework. Our frame- work and data are available on-line at the following URL: https://www.github.com/securedataplane Methodology. We chose a set of standard cloud traffic sce- narios (see",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "large number of other devices. The main advantage is that our method does not require any additional hardware, and it has no impact on the performance or stability of the system under test [1]. 2. Experimental Setup In order to demonstrate the effectiveness of our method in the real world, we have conducted two experiments: one was an open-stack experiment with a single-chip"
+        }
+    },
+    {
+        "id": 24,
+        "prefix": "algorithms within a SUMO to train a model for lane changing and car following. They tested the model by reconstructing",
+        "ground_truth": "scenes using NGSIM data, and the results indicate that the models based on reinforcement learning demonstrate higher efficacy than those based on rule-based approaches. Mirchevska et al. [8] used fitted Q-learning for high-level decisionmaking on a busy simulated highway. However, the microscopic traffic flows of these studies are based on",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "images of cars in different states, such as moving left or right without steering wheel control [20]. The results showed that the proposed method achieved better performance than other methods on all datasets with varying levels of complexity (i.e., 1D, 2D, and 3D). In addition, we also conducted experiments using a single-shot training strategy where"
+        }
+    },
+    {
+        "id": 25,
+        "prefix": "data for effective training [4]. However, obtaining labeled network data is often challenging, expensive, and limited in availability. Contrarily, contrastive",
+        "ground_truth": "learning (CL) has emerged as a prominent self-supervised learning (SSL) technique in un- supervised network representation learning [5]. CL methods operate by comparing augmented positive and negative sam- ples with the original graph. The positive samples exhibit similarity, while the negative samples manifest dissimilarity. This framework empowers CL methods to",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "learning (CL) has emerged as a promising approach to enhance the robustness of model generalization across diverse visual tasks. CL involves two steps: 1) pre-training on an image dataset with minimal supervision; and 2) fine-tuning on images from another dataset that are characterized by more complex or high-quality information. In this section, we will introduce CLt ,"
+        }
+    },
+    {
+        "id": 26,
+        "prefix": "beneficial for attackers. And 2) two UBA Table 3: Performance with different proportions of user in- teractions accessible to attackers.",
+        "ground_truth": "Data Ratio 10% 20% 50% 80% HR@10 HR@20 HR@10 HR@20 HR@10 HR@20 HR@10 HR@20 Before Attack 0.02 0.02 0.00 0.02 0.00 0.02 0.00 0.02 Random Attack0.00 0.02 0.00 0.00 0.00 0.02 0.02 0.02 Segment Attack0.00 0.02 0.02 0.02 0.02 0.02 0.02 0.02 Bandwagon Attack0.02 0.02 0.02 0.02 0.02 0.02 0.00",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "We also compare the performance of the proposed method on a real dataset, which is not available from previous research [17]. The dataset consists of three categories (unrealistic, realistic and non -reality), each containing 50 unique users who are randomly selected as attack cases. For this study we use only one category (Unrealism). In addition, we"
+        }
+    },
+    {
+        "id": 27,
+        "prefix": "of such processes, atmospheric retrievals must have significant flexibility, encompassing a broad variety of atmospheric compositions, while robustlyassessinghowsuchcompositionsdeviatefromequilibrium expectations. Given",
+        "ground_truth": "the high precision of JWST observations, particularly ofirradiatedgasgiantspossessingextendedatmospheres,theaccu- racy of traditional retrievals may be at risk. As such, atmospheric models used in retrievals must reach a high level of sophistication to avoid inaccurate results. This includes considering atmospheric composition that is non-uniform, which has been shown to be im- portant(Rocchettoetal.2016).Atmosphericretrievalsmustbeable",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "the limitations in our knowledge base and available data sources, it is imperative to employ advanced techniques for assessing the accuracy of these models across diverse scenarios. In this paper we present a novel approach that leverages the unique characteristics of the Earth\u2019s magnetic field as an effective tool for evaluating the accuracy of the models used to estimate the geomagnetic storm parameters. Specifically, we leverage the"
+        }
+    },
+    {
+        "id": 28,
+        "prefix": "IntelliJ plugin is displayed on the quests page (Fig. 4) along with its description and a progress bar. Both ongoing",
+        "ground_truth": "and completed quests are shown. The progress bar indicates the percentage of quest completion and is dynamically updated whenever relevant actions are undertaken. IDE \u201924, April 20, 2024, Lisbon, Portugal Straubinger et al. Figure 4: Current and completed quests Figure 5: List of achievements 3.3 Achievements Presently, the Gamekins IntelliJ",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "tasks are shown in Figs. 5, as well as an overview of all available tasks for each campaign. The results show that the plugin can be used to automate many aspects of the questing process: it allows users to set their own goals or objectives; provides real-time feedback based on user actions such as click events [21]; enables easy navigation through multiple"
+        }
+    },
+    {
+        "id": 29,
+        "prefix": "\ued6b \ued6b \u221a M 2 + 2M\u03c9 ( 2n + \u221a (|m \u2212 \u03a6|+\u03ba) (|m \u2212 \u03a6|+\u03ba + 1) b2",
+        "ground_truth": "+ 1 4 ) . (66) The normalized radial wave function will be Rn,m(x) = [ 4b2(M\u03c9 )3 ]1/4 \ued6a \ued6b \ued6b \u221a n!( n + \u221a (|m\u2212 \u03a6|+\u03ba) (|m\u2212 \u03a6|+\u03ba+1) b2 + 1 4 ) ! \u00d7 x \u03b9 2 \u2212 1 4 e\u2212 x 2 L(\u03b9) n (x),",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": ") . The result is given in the appendix. Proof of Proposition 3.4. Let us first show that the ratio test rejects the null hypothesis P = F when it is larger than the critical value R\u03c72 \u2248 0.95, and let us then prove that the ratio test rejects the null hypothesis P > F if it is smaller than the"
+        }
+    },
+    {
+        "id": 30,
+        "prefix": "and a surrogate model S\ud835\udf19 , we do the following steps: 1) assigning the same \ud835\udc61\ud835\udc62 fake users to all",
+        "ground_truth": "target users; 2) using the attacker to generate the fake user matrix \ud835\udc6b\ud835\udc53 based on the assigned budget; and 3) leveraging \ud835\udc6b\ud835\udc53 to attack S\ud835\udf19 and obtain its Top-\ud835\udc3e recommendations for each target user. After \ud835\udc38 times of experiments with different random seeds for training (\ud835\udc38 \u2248 10 in our",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "the models, and each of them is trained on one user-centric dataset. This step ensures that our final system does not change any existing datasets or features in the world; it just uses new data from different sources (e.g., other systems). 2) For every user, we randomly select two candidates for training and testing. The first candidate is used as the"
+        }
+    },
+    {
+        "id": 31,
+        "prefix": "Followingtheintroductionof WebTrack, wepresent howtwofeatures of thetool -i.e.thecollectionof content-level data and of visits to domains not limited to news - can",
+        "ground_truth": "break up current limitations of political communication research. Improvements in data collection can lead to improvements in data processing and increase the validity of constructs measured. To doso, trackingdatamust not onlybe combined with surveys, but also with elaborate forms of automated text analysis. These innovative IMPROVINGTHEQUALITYOFINDIVIDUAL-LEVELONLINEINFORMATIONTRACKING 24 approaches arenot necessaryforansweringallresearchquestions,butareimportantforstudieslooking",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "be used for improving the performance of LLMs on CROHME 121 noqa 4/s Figure 3:A comparison between our approach and other approaches in terms of accuracy (red)andfacial-size (blue). The results are shown by asterisks (* = significant; all figures without annotations have been removed), with a median precision of"
+        }
+    },
+    {
+        "id": 32,
+        "prefix": "which a fraction \u03d5 are adversarial and perform label-flipping attacks. Let \u2206Mc denote the model update from client c, and",
+        "ground_truth": "let Dtrusted be the trusted dataset used for label verification. The Consensus-Based Label Verification Algorithm checks each update \u2206Mc against Dtrusted to calculate a discrepancy measure. For a genuine client, this discrepancy is expected to be within a normal range, whereas for an adversarial client, the discrepancy is likely to",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "\u2206L denotes the model update for server c . The attack is performed by setting the following parameters: 1) the number of adversarially adjusted parameters (\u2206N), 2) the number of the network (\u2206Nd), 3) the number of the network layers (\u2206Ln). In this paper we present an attack that can"
+        }
+    },
+    {
+        "id": 33,
+        "prefix": "the result can be generalized as follows for the cross-power spectrum of two masked maps: \u27e8C\u02dca\u02dca\u2032 \u21131 \u27e9 = 1",
+        "ground_truth": "2\u21131 + 1 \u21131X m1=\u2212\u21131 X \u21132m2 X \u21133m3 X \u21134m4 X \u21135m5 \u27e8a\u21132m2(a\u2032 \u21133m3)\u2217w\u21134m4(w\u2032 \u21135m5)\u2217\u27e9G\u21131\u21132\u21134 \u2212m1m2m4 G\u21131\u21133\u21135 \u2212m1m3m5 = 1 4\u03c0 X \u21132,\u21133 (2\u21132 + 1)(2\u21133 + 1) \u0012 \u21131 \u21132 \u21133 0 0 0 \u00132\" \u27e8C aa\u2032 \u21132 \u27e9\u27e8C ww\u2032 \u21133 \u27e9 + \u27e8C aw\u2032 \u21132 \u27e9\u27e8C a\u2032w",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "2\u03c0 \u222b T1(H) log |c\u02dca\u2032|d\u00b5(ci). (60) The above expression is valid only when the noise level is small, i.e., d \u226a 5 and the noise power spectral density PSD is small. In this case, the above expression becomes a linear function of d with respect"
+        }
+    },
+    {
+        "id": 34,
+        "prefix": "effect (Swings 1941) plays a major role in the observed differences in the relative strength of the emission lines in",
+        "ground_truth": "different epochs. As mentioned in Manfroid et al. (2009), a few CH lines blended in the P branch of the CN emission require a much higher resolution to be resolved. The CN emission detected in the different comets observed is discussed below. 46P:TheCNB-X(0-0)emissionwasthestrongestbandobserved in all the epochs (see Figure.3). The",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "the two systems. The emission line in the K- and R-zone is dominated by the absorption of light from the excited state of the noble gas, which can be attributed to its high ionization potential [36]. In this work we have studied the emission spectra of the noble gas noble metal elements with respect to their atomic transitions at the K-R-Z scale using"
+        }
+    },
+    {
+        "id": 35,
+        "prefix": "area under the curve (AUC). These equations can be seen in Table 2. Evaluation Metric Formula Precision \ud835\udc47\ud835\udc43 \ud835\udc47\ud835\udc43 +",
+        "ground_truth": "\ud835\udc39\ud835\udc43 Recall \ud835\udc47\ud835\udc43 \ud835\udc47\ud835\udc43 + \ud835\udc39\ud835\udc41 F1 2 \u2217 \ud835\udc5d\ud835\udc5f\ud835\udc52\ud835\udc50\ud835\udc56\ud835\udc60\ud835\udc56\ud835\udc5c\ud835\udc5b \u2217 \ud835\udc5f\ud835\udc52\ud835\udc50\ud835\udc4e\ud835\udc59\ud835\udc59 \ud835\udc5d\ud835\udc5f\ud835\udc52\ud835\udc50\ud835\udc56\ud835\udc60\ud835\udc56\ud835\udc5c\ud835\udc5b + \ud835\udc5f\ud835\udc52\ud835\udc50\ud835\udc4e\ud835\udc59\ud835\udc59 Accuracy \ud835\udc47\ud835\udc43 + \ud835\udc47\ud835\udc41 \ud835\udc47\ud835\udc43 + \ud835\udc39\ud835\udc41 + \ud835\udc47\ud835\udc41 + \ud835\udc39\ud835\udc43 Table 2 - Formulas for evaluation metrics Figure 8 \u2013 Confusion matrices for k-NN, SVC, and RF models respectively Figure 4 \u2013 ROC curves",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "1 \ud835\udc37(\ud835\udf14) = \ud835\udefc \ud835\udc36 \u2212 \ud835\udcb0 \ud835\udd4c+\ud835\udccd \ud835\ude02\u2212\ud835\udd80 \ud835\udc59 (36)(40)+ \ud835\ude8e\ud835\udc57 \ud835\udc5d (5) Recall that the prediction error is a measure of how close"
+        }
+    },
+    {
+        "id": 36,
+        "prefix": "e\u03b5 \u2212 1, for any \u03b5 \u2208 [0, \u03b5\u2217] and x \u2208 Rd. Thus, if \u03b5\u2217 \u2264 log 2, then",
+        "ground_truth": "\u2225M(\u03b5, x)\u2225 \u2264 1 and D\u03a6\u03b5,0(x) is positive semi-definite. Finally, let \u03a8\u03b5 := \u03a6\u03b5,0 and note that (2.2) and (2.3) hold for L = 2 whenever \u03b5 \u2208 [0, log 2], while D\u03a8\u03b5(x) is positive semi-definite when exists. This observation completes the proof. \u25a1 We conclude this section by studying",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "we have that \ued79 \ued7a|x\u2212y(r+k) \u2212 x(r)|\u2264 |x \u2212 y(r + k)||p||pk ||\u27e8z, p \u27e9||= |x \u2212 y(r + k)||p||(r + k,) (49) where the last equality follows from"
+        }
+    },
+    {
+        "id": 37,
+        "prefix": "96% 100% 15 78% 90% 95% Table 3 \u2013 Accuracy test for KNN, SVC, and RF respectively. We can see",
+        "ground_truth": "from the results for all the models in Figures 5,6 and Table 3 that KNN produced above average results, SVC produced exceptional results, and RF produced results that were too good, and likely a product of overfitting : the model learning from the noise of the training data very well",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "that the performance of these models is quite good in all cases except for the case where the model has a small margin (i.e., the number of parameters is too low). In addition to this, we also observe that the prediction accuracy tends to decrease with increasing the number of features as shown in Fig.4(b) which indicates that our method does not perform well"
+        }
+    },
+    {
+        "id": 38,
+        "prefix": "that (\u03b4(\u03b3) + 1)(\u03b4(\u03b3) + 2) 3 = ( p 12\u03b3 + 13 \u2212 1)( p 12\u03b3 + 13 +",
+        "ground_truth": "1) 12 = 12\u03b3 + 12 12 = \u03b3 + 1. Thus, by rearranging terms, we obtain that (1+1/\u03b3)E[GREEDY -OR-T RUST (IERMK+, \u03b4(\u03b3))] \u2265 v( \u02c6M \u2229D). Thus, by the Lifting Lemma (Lemma 3.1), we conclude that GREEDY -OR-T RUST is (1+1/\u03b3)/(1\u2212\u02c6\u03b7)-approximate in expectation. Further, the robustness guarantee of1 2",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "4p 10\u03b3 ) . We have the following result. Proposition 5.6 ([7, Section 8]) . The following are equivalent: \u2022 If \u03b3 \u2208 (\u2212\u221e , 1), then p\u2032(\u03b3) \u2265 1 and \u03b3 is a constant multiple of p \u2032; \u2022 If \u03b3 > 1/p"
+        }
+    },
+    {
+        "id": 39,
+        "prefix": "Algorithm 1 involves metrics such as model accuracy, attack detection rate, and false posi- tive/negative rates. These metrics are pivotal",
+        "ground_truth": "in assessing the balance between security and operational efficiency within the FL system. VI. T HEORETICAL ANALYSIS A. Convergence Analysis One of the fundamental aspects of our algorithm is its ability to converge to an optimal set of model parameters under standard FL settings. We present the following theorem to",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "in evaluating the efficacy of adversarial attacks against the AoNK strategy. The adversary\u2019s performance is gauged by calculating the percentage of successful strategies that result from each type of attack (e.g., zero or one successful strategies). This metric provides a comprehensive assessment of the effectiveness of adversaris- ity across different types of attacks. In Algorithm 2"
+        }
+    },
+    {
+        "id": 40,
+        "prefix": "of different sizes to a fixed-dimensional space but should also transcend graph size to capture underlying structural characteristics. For example,",
+        "ground_truth": "an effective graph embedding would position the mapping of a ten-node circulant graph closer to that of a twenty-node circulant graph compared to the mapping of a fifteen-node wheel graph. In this paper, we tackle the challenge of generating graph embeddings while adhering to these design objectives. Problem 1: Given",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "the number of nodes in the graph can be represented as a function of size by a function f(n) = 2 n log 2n + 1 , where n is the size of the graph and n \u2208 (0, 4]. The number of edges in the graph can then be expressed as an ordinal map I \u2192 {1, . ."
+        }
+    },
+    {
+        "id": 41,
+        "prefix": "proliferation mechanism controls the leading order features. This is biologically insightful because while both diffusion and a source term are",
+        "ground_truth": "required to form a travelling wave solution, it is the proliferation term that largely controls the shape of the travelling wave [16]. 25 4 Fisher-KPP and Porous-Fisher models: Initial con- ditions with compact support All time-dependent PDE solutions considered in Sections 2\u20133 are mathematically conve- nient since they have u(x,",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "required to generate the high-level patterns, they have different effects on the low- level patterns (see Figs 1a\u2013b). The diffusion terms can be used for generating high-level patterns but only in the presence of noise or other sources that do not affect the pattern formation process [30]. In contrast, the source term has no effect at all when"
+        }
+    },
+    {
+        "id": 42,
+        "prefix": "(P/p )I \u2261 PI /pI . Proposition 4. A slice \ufb01bration P/p : /CH \u2192 /BU is a terminally pointed",
+        "ground_truth": "\ufb01bration, namely: it is a \ufb01bration equipped with \ufb01bered terminal objec ts. Proof. For every object I of /BU , the assignment I \u21a6\u2192 (I, 1pI ) extends to a \ufb01bered functor 1 p\u2022 : 1 /BU \u2192 /BU P/p which is right adjoint right inverse to P/p . Examples",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": ", non-negative function of the form I = PI + pI and having a unique minimizer PI \u2208 [0, 1] and an associated maximum eigenvalue, i.e., I \u2032 = PI \u2212 pI , where we have used that I \u2032 has a positive real part only if p < 2. Proof. Let us consider the"
+        }
+    },
+    {
+        "id": 43,
+        "prefix": "23]. On the other hand, gas phase synthesis utilizing microwave plasma is not a chemical synthesis method, and mass production",
+        "ground_truth": "is achievable. However, the average yield is around 1.2 percent, which is extremely low [24]. The synthesis of graphene using plasma is a recently developed approach with little existing literature [25-31]. The ability to manufacture self-standing graphene is the most significant benefit of plasma-based synthesis over other known methods. The",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "of the gas-phase product requires an additional purification step. The gas-phase synthesis process involves the condensation of the precursor gas on a solid catalyst to produce the desired compound [10\u2013 14], while the purification stage entails removing impurities from the resulting gas stream via filtration or distillation processes (e.g., distillation). In this work, we report our development of"
+        }
+    },
+    {
+        "id": 44,
+        "prefix": "G\u21131\u21132\u21133 m1m2m3 represents the Gaunt integral, which is symmetric under exchange of ( \u2113, m) pairs and can be expanded",
+        "ground_truth": "in terms of Wigner 3 j symbols: G\u21131\u21132\u21133 m1m2m3 \u2261 Z d\u02c6 nY\u21131m1(\u02c6 n)Y\u21132m2(\u02c6 n)Y\u21133m3(\u02c6 n) = r (2\u21131 + 1)(2\u21132 + 1)(2\u21133 + 1) 4\u03c0 \u0012 \u21131 \u21132 \u21133 0 0 0 \u0013\u0012 \u21131 \u21132 \u21133 m1 m2 m3 \u0013 (14) 3. Trispectrum The connected trispectrum, or the connected",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "as \u222b Tn(\u03a3)g1m2m3m\u21132m\u21133 m1m2m\u21134 + \u2211m\u21133m\u21132m\u21131 \u2212 \u03bdk 5 f , where \u03a0 = {0V } are the Fourier transform functions. The Gat- nine integr"
+        }
+    },
+    {
+        "id": 45,
+        "prefix": "packets from the 10-20 second mark. Results. For brevity the latency distribution only for 64 B packets is reported here.",
+        "ground_truth": "Fig. 5(b) shows the data for the shared mode, while Fig. 5(e) is for the isolated mode. Level- 3 latency data is shown in Fig. 5(h). Although the p2p sce- narios shows that MTS increases the latency (Fig. 5(b), (e) and (h)), the p2v and v2v scenarios show thatMTS is",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "The results are shown in Figs.5 and7, where we plot the average latency of each packet type on a logarithmic scale (i.e., with a 3:1 ratio). We note that all the data points lie within \u00b11 ms to +\u221e or \u2212 \u221e while some values fall outside this range as well. It should be noted that the"
+        }
+    },
+    {
+        "id": 46,
+        "prefix": "representations into three latent factors: user inter- est, item popularity, and user social influence, and then miti- gates the social",
+        "ground_truth": "influence bias. DENC [7] proposes an exposure model and a deconfounding model to e ffectively control and eliminate social influence bias. Conversely, D2Rec [8] utilizes network information to disentangle user and item representa- tions into exposure, confounder, and prediction factors. It de- signs a reweighting function to mitigate social influence",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "factor to be a key element of our model. 3) User Inter- ostation Model The first step in building an agent is to predict whether or not it will interact with another user. We use the following two methods for this purpose: (1) Simultaneous estimation of interaction probability between agents; (2) Simultaneous estimation of interaction degree between agents."
+        }
+    },
+    {
+        "id": 47,
+        "prefix": "behaviors, and the second term enforces more similar repre- sentations for behaviors within the same intent group. 3.5 Prediction Based",
+        "ground_truth": "on the learned representations of user and item, the preference score of user u towards item i can be predicted as: \u02c6yui = z\u22a4 u zi. (13) We use pairwise Bayesian Personalized Ranking (BPR) loss [Rendle et al., 2009], which promotes higher score for the observed positive pair (u, i)",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "on the previous section, we can now state our prediction based on the current input data: \ud835\udc45(\ud835\udc3b|\ud835\udc38) = \ud835\udf17 (\ud835\udc37|(\ud835\udc34)) + \ud835\udefd (\ud835\udc35), where \ud835\udc59= [1, . . . , \ud835\udc58] is a vector of positive samples from"
+        }
+    },
+    {
+        "id": 48,
+        "prefix": "A and B are un- known. Taking inspiration from recent advancements in con- trastive learning and sample-based mutual information estima-",
+        "ground_truth": "tion, such as the CLUB framework [37], we estimate mutual information using the difference in conditional probabilities be- tween positive and negative sample pairs. We regard a sample pair with the same index as a positive pair, such as ( ai, bi), and consider a sample pair with a different",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "tion, we propose a novel method for the estimation of the weight matrix W that is based on the weighted sum of the weights between the input features Xi \u2208 Rn0 \u2264 x1 \u2264 r + 1 and the labels Yj\u2208RNk with the corresponding feature values Xi . The proposed method employs a self-supervised learning approach to learn the weights"
+        }
+    },
+    {
+        "id": 49,
+        "prefix": "any even order m. The path graph P3 is positively and negatively pseudo-invertible. The path graph Pm is neither positively",
+        "ground_truth": "nor negatively pseudonvertible for any odd degree m \u0338= 3. Proof. There are several papers dealing with the form of the Moore-Penrose inverse matrix to the adjacency matrix of a circular graph Cm (see Sivakumar and Nandi [39], and references therein). Here, we present the approach taking into account the",
+        "predictions": {
+            "exp05b_interleave_clean_r32/final": "invertable nor negative invertibly invertible, but it can be inverted by a bijection between the two paths in Pm (see Figure 1). We now show that this bijections are not equal to each other for all m \u2264 20: \u2022 For m = 5 , we have Pm(x) \u2212 Pm(y) \u2208"
+        }
+    }
+]
