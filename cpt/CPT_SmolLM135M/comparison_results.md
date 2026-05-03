@@ -1,0 +1,52 @@
+# Qualitative Comparison: Base vs Worst vs Best
+
+## Prompt 1
+
+**Prompt:** R2-Bench: Benchmarking the Robustness of Referring Perception Models under Perturbations Xiang Li1, Kai Qiu1, Jinglu Wang2, Xiaohao Xu3, Rita Singh1, Kashu Yamazak1, Hao Chen1, Xiaonan Huang3, Bhiksha Raj1 1 Carnegie
+
+### base_model
+Mellon University, Pittsburgh, PA USA 2 Stanford Children’s Health, Stanford CA USA 3 University of California Berkeley, Berkeley CA USA
+The authors have no competing interests to declare.
+JM and KW designed the study; JK conducted data analysis for this work; JM wrote manuscript with input from all coauthors.
+About this article print edition in which full text can be downloaded or ordered as a jpeg file.
+Not everything on this site has been submitted by our members
+
+### worst_model
+Mellon University, Pittsburgh, PA USA 2 Stanford Children’s Health, Stanford CA USA 3 University of California Berkeley, Berkeley CA USA
+The authors have no competing interests to declare.
+Springer Nature remains neutral with regard to jurisdictional claims inederal and state laws and any interference by federal or state courts between this work and such other rights declared elsewhere (e.g., copyright).
+
+### best_model
+Mellon University, Pittsburgh, PA, USA 2 Department of Computer Science and Engineering, Carnegie Mellon University, Pittsburgh, PA, USA 3 Department of Electrical & Electronic Systems, Carnegie Mellon University, Pittsburgh, PA, USA Abstract. We present a novel method for evaluating robustness to perturbations in refering perception models (RPPs). The proposed method is based on the notion that an RPP can be characterized by its ability to perform well when perturbed with different types of perturbation signals. Specifically, we
+
+---
+
+## Prompt 2
+
+**Prompt:** PI-A STRO DECONV : A P HYSICS -I NFORMED UNSUPERVISED LEARNING METHOD FOR ASTRONOMICAL IMAGE DECONVOLUTION A PREPRINT Shulei Ni, Yisheng Qiu, Yunchun Chen, Zihao Song, Hao Chen, Xuejian Jiang,
+
+### base_model
+Yongqiang Zhang, Yingchang Liu, Yuyuan Wang, Yanyan Wang, Yifeng Wang, Yulong Wang, Yuhua Wang, Yusen Wang, Yuming Wang, Yuzhen Wang, Yutai Wang, Yuping Wang, Yufang Wang, Yulin Wang, Yuliang Wang, Yubo Wang, Yurixia Wang, Yushui Wang, Yuchou Wang, Yucheng Wang
+
+### worst_model
+Yongqiang Zhang, Yingchang Liu, Yuyuan Wang, Yanyan Wang, Yifeng Wang, Yulong Wang, Yusen Wang, Yutai Wang, Yufang Wang, Yurixia Wang, Yulin Wang, Yuzhen Wang, Yushui Wang, Yuping Wang, Yuchou Wang, Yucheng Wang, Yudong Wang, Yuelin Wang, Yuliang Wang, Yuhua
+
+### best_model
+and Ying Zhang Abstract We present a novel method for the pre-processing of astronomical images. The proposed method is based on the principle that the image data can be processed in two stages: (1) PreProcessing; (2) Post Processing. In this paper we propose an algorithm to perform both pre-processing and post- processing simultaneously using a single pipeline with a high computational efficiency. Our approach achieves better performance than existing methods by employing a multi-stage pre-processing procedure followed by a post
+
+---
+
+## Prompt 3
+
+**Prompt:** CLASSIFICATION OF 2-NODE EXCITATORY-INHIBITORY NETWORKS MANUELA AGUIAR, ANA DIAS, AND IAN STEWART Abstract. We classify connected 2-node excitatory-inhibitory networks under various conditions. We assume that, as well as for connections,
+
+### base_model
+the network is a single node and has no self-organizing properties (i.e., it does not have any self-reconfigurations). The main goal of this paper was to study how these two types of networks are related in terms of their structure and function. In particular, we studied whether there exists an induced connection between the two types of networks or if they do not exist at all; however, we did find some interesting results on both topics: one example shows that the two kinds
+
+### worst_model
+the network is a single node and has no self-organizing properties (i.e., it does not have any self-reconfigurations). The main goal of this paper was to study how these two types of networks are related in terms of their structure and function. In particular, we studied whether there exists an induced connection between the two types of networks or if they do not exist at all; however, we did find some interesting results on which type of connectivity can be found among both types
+
+### best_model
+the network is in a state of excitation and inhibition (i.e., it has an active and inactive state). The active state can be defined by the presence or absence of a threshold voltage. In this work we study the dynamics of these states using the Boltzmann model with the Bolzano-Weierstrass distribution. Our results are compared to those obtained from the Bolzano-Weierstrass model without the Bolzano-Weierstrass distribution. Keywords:
+
+---
