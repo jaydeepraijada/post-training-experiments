@@ -49,13 +49,14 @@ python merge.py --finetuned models/my_run/final --output models/my_run_ties \
 
 **Eval metrics:** perplexity, cross-entropy, ROUGE-1/2/L, BLEU, BERTScore F1
 
-**Catastrophic forgetting eval (post full fine-tuning):**
+**Qualitative comparison (final step):**
 ```bash
-pip install lm-eval
-lm_eval --model hf --model_args pretrained=models/my_run/final \
-    --tasks hellaswag,arc_easy,piqa --device cuda --output_path results/lm_eval_my_run.json
+python compare.py \
+    --models HuggingFaceTB/SmolLM-135M models/exp01_full_ft_bf16/final models/<best>/final \
+    --names base_model worst_model best_model \
+    --dataset cpt_val_dataset_50.jsonl --num_prompts 3 \
+    --output comparison_results.json
 ```
-Run on: base model, exp01_full_ft_bf16, TIES-merged model — compare to quantify forgetting.
 
 **Key flags:**
 - `--full_training` / `-ft`: disable LoRA, train all weights (uses lr=1e-5, NEFTune)

@@ -10,4 +10,7 @@ python train.py -d cpt_train_dataset_138.jsonl -td cpt_val_dataset_50.jsonl -o e
 echo "=== Starting exp06: Interleaved, cleaned, rsLoRA ==="
 python train.py -d cpt_train_dataset_138.jsonl -td cpt_val_dataset_50.jsonl -o exp06_rslora_interleaved --lora_r 16 --mix --mix_ratio 0.2 --rslora --wandb_project cpt-smollm135m
 
+echo "=== Starting exp05b: Interleaved, cleaned, r=32 (reference best config) ==="
+python train.py -d cpt_train_dataset_138.jsonl -td cpt_val_dataset_50.jsonl -o exp05b_interleave_clean_r32 --lora_r 32 --mix --mix_ratio 0.2 --wandb_project cpt-smollm135m
+
 echo "=== All experiments done ==="

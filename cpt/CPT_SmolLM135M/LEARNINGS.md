@@ -151,15 +151,20 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 
 ---
 
-## Catastrophic Forgetting Testing Plan (deferred)
+## Catastrophic Forgetting — DROPPED
 
-**Decision:** Skip for now. Full FT on 138 papers doesn't learn enough to cause meaningful forgetting anyway. Will revisit after finding best config on large interleaved dataset.
+**Decision:** Dataset (188 papers) is too small to cause meaningful forgetting. Full FT bf16 results were essentially identical to base model — if 43 minutes of full FT on 188 papers doesn't shift the weights meaningfully, there's nothing to forget. TIES and lm-eval benchmarks would just be noise.
 
-**Final experiment plan (post all LoRA/interleaved runs):**
-1. Full fine-tuning (bf16) on best interleaved dataset config
-2. TIES merge sweep (density 0.2/0.3/0.5)
-3. lm-eval on HellaSwag + ARC-Easy + PIQA: base vs full FT vs TIES
-4. Push winner to HuggingFace
+**Would revisit if:** running on 1000+ papers with full fine-tuning.
+
+## Final Experiment Plan
+
+1. ✅ Rank sweep (r=8/16/32) — done
+2. ✅ Full FT (4-bit broken, bf16 worse than LoRA) — done
+3. ✅ Interleaved exp04/05/06 — done
+4. ⏳ exp05b: cleaned + mixed + r=32 (reference best config)
+5. ⏳ Qualitative comparison: `compare.py` — base vs worst vs best on same prompts
+6. ⏳ Push best model to HuggingFace
 
 ---
 

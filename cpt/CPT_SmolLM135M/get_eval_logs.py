@@ -5,9 +5,10 @@ import subprocess
 import sys
 
 experiments = [
-    ("exp04_interleave_noclean", "results_exp04.json"),
-    ("exp05_interleave_clean",   "results_exp05.json"),
-    ("exp06_rslora_interleaved", "results_exp06.json"),
+    ("exp04_interleave_noclean",    "results_exp04.json"),
+    ("exp05_interleave_clean",      "results_exp05.json"),
+    ("exp06_rslora_interleaved",    "results_exp06.json"),
+    ("exp05b_interleave_clean_r32", "results_exp05b.json"),
 ]
 
 dataset = "cpt_val_dataset_50.jsonl"
