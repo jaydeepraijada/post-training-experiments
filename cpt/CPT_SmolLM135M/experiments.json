@@ -1,1 +1,5 @@
-[]
+[
+  {
+    "note": "Experiment results are documented in logs/ and LEARNINGS.md. Run log_experiment.py after each eval to populate this file."
+  }
+]
