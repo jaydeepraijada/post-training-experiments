@@ -116,8 +116,29 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 
 ---
 
-### exp03_lora_r8 (LoRA rank sweep — pending)
-**Hypothesis:** Lower rank = more regularisation = potentially better generalisation on small dataset (138 papers). r=8 might outperform r=32 if r=32 is slightly overfitting to the training distribution.
+### exp03_lora_r8 (LoRA rank 8)
+
+| Metric | Value |
+|---|---|
+| Perplexity | 18.42 |
+| Cross-Entropy | 2.914 |
+| ROUGE-1 | 0.2093 |
+| ROUGE-L | 0.1433 |
+| BERTScore F1 | 0.7477 |
+| Train runtime | ~13 min |
+| grad_norm | 0.187 (lowest of all ranks) |
+
+**Result: Marginally worse than r=16 and r=32, but differences are within noise.**
+
+**Rank sweep conclusion:**
+
+| Rank | PPL | ROUGE-1 | BERTScore | Params trained |
+|---|---|---|---|---|
+| r=8 | 18.42 | 0.209 | 0.748 | ~4.9M |
+| r=16 | 18.39 | 0.207 | 0.752 | ~9.7M |
+| r=32 | 18.36 | 0.213 | 0.753 | ~19.4M |
+
+**The dataset is the bottleneck, not the rank.** All three converge to the same ~2.845 eval loss plateau. For interleaved experiments use **r=16** — best efficiency/performance tradeoff.
 
 ### exp04 / exp05 (Interleaved dataset, 20% custom + 80% HF scientific_papers)
 **Hypothesis:** 138 papers is a very small dataset. Mixing in the large HF scientific_papers corpus (80%) should give the model much broader scientific language coverage while still adapting to our domain. Risk: our domain signal gets diluted.
@@ -146,7 +167,7 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 
 1. ~~How much does CPT help vs base model?~~ **Answered: 20% perplexity drop, all metrics improve.**
 2. ~~Does full fine-tuning (bf16) beat LoRA on small data?~~ **Answered: No — LoRA wins on 138 papers. Full FT overfits.**
-3. Does lower LoRA rank (r=8/16) generalise better than r=32 on small dataset?
+3. ~~Does lower LoRA rank (r=8/16) generalise better than r=32 on small dataset?~~ **Answered: No difference — dataset is the bottleneck. Use r=16 for efficiency.**
 4. Is the eval loss plateau a dataset size problem or model capacity problem? (exp04/05 will test)
 5. Does the interleaved large dataset unlock full fine-tuning's potential?
 6. Does TIES reduce catastrophic forgetting while preserving domain gains? (final experiment)

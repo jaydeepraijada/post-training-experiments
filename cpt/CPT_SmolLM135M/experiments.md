@@ -9,7 +9,7 @@
 | 7 | `exp07_full_ft_interleaved` | Full FT bf16 on best interleaved dataset config | `--full_training` | ⏳ Deferred to end |
 | 8 | `exp07_ties` | TIES merge of exp07 back into base | `merge.py --density 0.2/0.3/0.5` | ⏳ Deferred to end |
 | 9 | Catastrophic forgetting eval | lm-eval HellaSwag + ARC-Easy + PIQA: base vs exp07 vs exp07_ties | `lm_eval` | ⏳ Deferred to end |
-| 3a | `exp03_lora_r8` | LoRA rank 8 | `--lora_r 8` | ⏳ Pending |
+| 3a | `exp03_lora_r8` | LoRA rank 8 | `--lora_r 8` | ✅ Done — within noise of r=16/32 |
 | 3b | `exp03_lora_r16` | LoRA rank 16 | `--lora_r 16` | ✅ Done — ~same as r=32 |
 | 3c | `exp03_lora_r32` | LoRA rank 32 (baseline) | `--lora_r 32` | ✅ Done |
 | 4 | `exp04_interleave_noclean` | 20% custom + 80% HF scientific_papers, no cleaning, LoRA r=16 | `--mix --mix_ratio 0.2 --lora_r 16`, dataset built with `--no_clean` | ⏳ Pending |
