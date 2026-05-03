@@ -71,11 +71,29 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 
 ---
 
-## Hypotheses for Upcoming Experiments
+### exp01_full_ft_bf16 (Full fine-tuning — bf16, fixed)
 
-### exp01_full_ft_bf16 (Full fine-tuning — fixed)
-**Hypothesis:** With bf16 (no quantization), weight updates are lossless. Expect significantly lower perplexity than LoRA r=32. Risk: slower training (~45 min), higher VRAM, and potential catastrophic forgetting since all 135M params are updated.
-- lr=1e-5, NEFTune noise=5, max_grad_norm=0.7
+| Metric | Value |
+|---|---|
+| Perplexity | 22.88 |
+| Cross-Entropy | 3.130 |
+| ROUGE-1 | 0.1704 |
+| ROUGE-L | 0.1105 |
+| BERTScore F1 | 0.7372 |
+
+**Result: Worse than LoRA r=32 on every metric. ROUGE-1 even dropped below base model (0.170 vs 0.178).**
+
+**What this tells us:**
+- Full fine-tuning on 138 papers = overfitting. 135M params, tiny dataset — the model memorises training distribution instead of generalising.
+- High grad_norm (1.18 vs 0.25 for LoRA) confirms unstable optimization — too many params chasing too little data.
+- LoRA's regularisation (only 9.7M trainable params) is exactly what's needed at this data scale.
+- Full fine-tuning may work at scale — **revisit after interleaved experiments (exp04/05) with much larger effective dataset.**
+
+**Revised plan:** Skip catastrophic forgetting eval for now. Do full FT + TIES + forgetting eval as a final experiment after finding the best config on the large interleaved dataset.
+
+---
+
+## Hypotheses for Upcoming Experiments
 
 ### exp03_lora_r8 / r16 (LoRA rank sweep)
 **Hypothesis:** Lower rank = more regularisation = potentially better generalisation on small dataset (138 papers). r=8 might outperform r=32 if r=32 is slightly overfitting to the training distribution.
@@ -91,35 +109,23 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 
 ---
 
-## Catastrophic Forgetting Testing Plan
+## Catastrophic Forgetting Testing Plan (deferred)
 
-After exp01_full_ft_bf16 completes:
+**Decision:** Skip for now. Full FT on 138 papers doesn't learn enough to cause meaningful forgetting anyway. Will revisit after finding best config on large interleaved dataset.
 
-1. **Run lm-evaluation-harness** on 3 models:
-   - `HuggingFaceTB/SmolLM-135M` (base — reference)
-   - `models/exp01_full_ft_bf16/final` (full FT)
-   - `models/exp01_full_ft_bf16_ties/` (TIES merged)
-
-2. **Tasks:** HellaSwag (commonsense), ARC-Easy (general knowledge), PIQA (physical intuition)
-
-3. **What to look for:**
-   - If full FT drops benchmark scores vs base → catastrophic forgetting confirmed
-   - If TIES-merged model recovers benchmark scores while keeping domain gains → TIES is working
-   - Ideal outcome: TIES model has lower perplexity than base AND similar benchmark scores to base
-
-4. **Command:**
-```bash
-lm_eval --model hf --model_args pretrained=models/exp01_full_ft_bf16/final \
-    --tasks hellaswag,arc_easy,piqa --device cuda --output_path results/lm_eval_exp01_bf16.json
-```
+**Final experiment plan (post all LoRA/interleaved runs):**
+1. Full fine-tuning (bf16) on best interleaved dataset config
+2. TIES merge sweep (density 0.2/0.3/0.5)
+3. lm-eval on HellaSwag + ARC-Easy + PIQA: base vs full FT vs TIES
+4. Push winner to HuggingFace
 
 ---
 
 ## Questions to Answer as Results Come In
 
 1. ~~How much does CPT help vs base model?~~ **Answered: 20% perplexity drop, all metrics improve.**
-2. Does full fine-tuning (bf16) beat LoRA? (running now as exp01_full_ft_bf16)
-3. Does TIES reduce catastrophic forgetting while preserving domain gains?
-4. Is the eval loss plateau a dataset size problem or a model capacity problem? (exp04/05 will test)
-5. Do ROUGE/BERTScore correlate with perplexity improvements, or diverge?
-6. Does lower LoRA rank (r=8/16) generalise better on this small dataset?
+2. ~~Does full fine-tuning (bf16) beat LoRA on small data?~~ **Answered: No — LoRA wins on 138 papers. Full FT overfits.**
+3. Does lower LoRA rank (r=8/16) generalise better than r=32 on small dataset?
+4. Is the eval loss plateau a dataset size problem or model capacity problem? (exp04/05 will test)
+5. Does the interleaved large dataset unlock full fine-tuning's potential?
+6. Does TIES reduce catastrophic forgetting while preserving domain gains? (final experiment)
