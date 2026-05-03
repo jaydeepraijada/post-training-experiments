@@ -42,7 +42,7 @@ def main():
 
     if args.mix:
         print("Mixing in 20% scientific_papers arxiv data...")
-        general_data = load_dataset("allenai/peS2o", split="train", trust_remote_code=True)
+        general_data = load_dataset("togethercomputer/RedPajama-Data-1T", "arxiv", split="train", trust_remote_code=True)
 
         def normalize_schema(example):
             return {"text": example.get("text", "") or example.get("article", "")}
