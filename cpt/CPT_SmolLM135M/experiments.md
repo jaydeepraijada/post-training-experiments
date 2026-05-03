@@ -14,8 +14,7 @@
 | 3c | `exp03_lora_r32` | LoRA rank 32 (baseline) | `--lora_r 32` | ✅ Done |
 | 4 | `exp04_interleave_noclean` | 20% custom + 80% HF scientific_papers, no cleaning, LoRA r=16 | `--mix --mix_ratio 0.2 --lora_r 16`, dataset built with `--no_clean` | ⏳ Pending |
 | 5 | `exp05_interleave_clean` | Same mix, cleaned dataset (refs removed, appendix kept), LoRA r=16 | `--mix --mix_ratio 0.2 --lora_r 16` | ⏳ Pending |
-| 6a | `exp06a_rslora_r16` | rsLoRA r=16 vs standard r=16 | `--lora_r 16 --rslora` | ⏳ Pending |
-| 6b | `exp06b_rslora_r32` | rsLoRA r=32 vs standard r=32 | `--lora_r 32 --rslora` | ⏳ Pending |
+| 6 | `exp06_rslora_interleaved` | rsLoRA at best rank on interleaved dataset — compare against exp04/05 winner | `--mix --mix_ratio 0.2 --rslora --lora_r <best>` | ⏳ Pending after exp04/05 |
 
 ### Notes on each experiment
 
@@ -40,11 +39,8 @@ Reverse the mix ratio (20% custom, 80% HF) to test whether large general scienti
 **Exp 5 — Interleaved, cleaned**
 Same mix as exp04 but use the default cleaned dataset (references stripped, appendix preserved). Isolates the effect of cleaning.
 
-**Exp 6a — rsLoRA r=16**
-Compare rsLoRA r=16 against standard LoRA r=16 (exp03_lora_r16). Tests whether rsLoRA helps at lower rank.
-
-**Exp 6b — rsLoRA r=32**
-Compare rsLoRA r=32 against standard LoRA r=32 (exp03_lora_r32). This is where rsLoRA is designed to shine — higher rank, larger update scale, more instability to correct.
+**Exp 6 — rsLoRA on interleaved dataset**
+Run after exp04/05 to identify the best rank. Then run rsLoRA at that rank on the same interleaved dataset for a direct comparison. Only meaningful comparison is on the big dataset where differences can actually show up.
 
 <!-- AUTO-GENERATED: do not edit below this line -->
 
