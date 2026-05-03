@@ -83,7 +83,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
 base_model_id = "HuggingFaceTB/SmolLM-135M"
-adapter_id = "jaydeepraijada/SmolLM-135M-CPT-LoRA-r32"
+adapter_id = "JaydeepR/SmolLM-135M-CPT-LoRA-r32"
 
 tokenizer = AutoTokenizer.from_pretrained(base_model_id)
 model = AutoModelForCausalLM.from_pretrained(base_model_id)
@@ -109,6 +109,6 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
   author = {Jaydeep Raijada},
   title  = {SmolLM-135M CPT LoRA r=32 — Continued Pre-Training on arXiv ML Papers},
   year   = {2026},
-  url    = {https://huggingface.co/jaydeepraijada/SmolLM-135M-CPT-LoRA-r32}
+  url    = {https://huggingface.co/JaydeepR/SmolLM-135M-CPT-LoRA-r32}
 }
 ```

@@ -7,7 +7,7 @@ Experiments in post-training small LLMs. Each subfolder is a self-contained expe
 ### CPT SmolLM-135M
 Domain-adapting [SmolLM-135M](https://huggingface.co/HuggingFaceTB/SmolLM-135M) on arXiv ML papers via continued pre-training.
 
-**Best model:** [`jaydeepraijada/SmolLM-135M-CPT-LoRA-r32`](https://huggingface.co/jaydeepraijada/SmolLM-135M-CPT-LoRA-r32)
+**Best model:** [`JaydeepR/SmolLM-135M-CPT-LoRA-r32`](https://huggingface.co/JaydeepR/SmolLM-135M-CPT-LoRA-r32)
 
 ## The Experiment Loop
 

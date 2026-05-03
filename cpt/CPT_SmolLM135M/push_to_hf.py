@@ -1,7 +1,7 @@
 """Push best model, GIF, and model card to HuggingFace."""
 from huggingface_hub import HfApi
 
-REPO_ID    = "jaydeepraijada/SmolLM-135M-CPT-LoRA-r32"
+REPO_ID    = "JaydeepR/SmolLM-135M-CPT-LoRA-r32"
 MODEL_PATH = "models/exp03_lora_r32/final"
 GIF_PATH   = "inference_comparison.gif"
 CARD_PATH  = "HF_MODEL_CARD.md"
