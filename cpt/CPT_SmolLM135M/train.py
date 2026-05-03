@@ -12,12 +12,7 @@ from datasets import load_dataset, interleave_datasets
 from trl import SFTTrainer, SFTConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import LoraConfig
-from transformers import EarlyStoppingCallback
 
-early_stopping_callback = EarlyStoppingCallback(
-    early_stopping_patience=3,
-    early_stopping_threshold=0.0,
-)
 SEED = 3407
 
 def main():
@@ -39,6 +34,7 @@ def main():
     parser.add_argument("--rslora", action="store_true", help="Use rank-stabilized LoRA (rsLoRA).")
     parser.add_argument("--wandb_project", type=str, default="cpt-smollm135m", help="W&B project name.")
     parser.add_argument("--no_wandb", action="store_true", help="Disable W&B logging.")
+    parser.add_argument("--resume", action="store_true", help="Resume from latest checkpoint in output_dir.")
     args = parser.parse_args()
 
     train_dataset = load_dataset("json", data_files=args.dataset_path, split="train")
@@ -118,11 +114,18 @@ def main():
     wandb_enabled = not args.no_wandb
     wandb_run_id = None
     if wandb_enabled:
+        existing_config_path = f"models/{args.output_model_id}/train_config.json"
+        existing_run_id = None
+        if args.resume and os.path.exists(existing_config_path):
+            with open(existing_config_path) as f:
+                existing_run_id = json.load(f).get("wandb_run_id")
         run = wandb.init(
             project=args.wandb_project,
             name=args.output_model_id,
             config=train_config,
             job_type="train",
+            id=existing_run_id,
+            resume="must" if existing_run_id else None,
         )
         wandb_run_id = run.id
         train_config["wandb_run_id"] = wandb_run_id
@@ -147,8 +150,6 @@ def main():
         eval_strategy="steps",
         eval_steps=20,
         save_strategy="steps",
-        load_best_model_at_end=True,
-        metric_for_best_model="eval_loss",
         per_device_eval_batch_size=args.batch_size,
         report_to="wandb" if wandb_enabled else "none",
         run_name=args.output_model_id,
@@ -219,8 +220,7 @@ def main():
             args=training_args,
         )
 
-    trainer.add_callback(early_stopping_callback)
-    trainer.train()
+    trainer.train(resume_from_checkpoint=args.resume or None)
 
     if torch.cuda.is_available():
         model.save_pretrained(f"models/{args.output_model_id}/final")
