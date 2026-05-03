@@ -8,7 +8,7 @@
 | 1b | `exp01_full_ft_bf16` | Full fine-tuning, bf16 (fixed) | `--full_training` | ✅ Done — worse than LoRA |
 | 2 | Full FT + TIES + forgetting eval | After best interleaved config found | `merge.py` + `lm_eval` | ⏳ Deferred to end |
 | 3a | `exp03_lora_r8` | LoRA rank 8 | `--lora_r 8` | ⏳ Pending |
-| 3b | `exp03_lora_r16` | LoRA rank 16 | `--lora_r 16` | ⏳ Pending |
+| 3b | `exp03_lora_r16` | LoRA rank 16 | `--lora_r 16` | ✅ Done — ~same as r=32 |
 | 3c | `exp03_lora_r32` | LoRA rank 32 (baseline) | `--lora_r 32` | ✅ Done |
 | 4 | `exp04_interleave_noclean` | 20% custom + 80% HF scientific_papers, no cleaning, LoRA r=16 | `--mix --mix_ratio 0.2 --lora_r 16`, dataset built with `--no_clean` | ⏳ Pending |
 | 5 | `exp05_interleave_clean` | Same mix, cleaned dataset (refs removed, appendix kept), LoRA r=16 | `--mix --mix_ratio 0.2 --lora_r 16` | ⏳ Pending |

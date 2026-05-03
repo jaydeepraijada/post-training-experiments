@@ -95,7 +95,28 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 
 ## Hypotheses for Upcoming Experiments
 
-### exp03_lora_r8 / r16 (LoRA rank sweep)
+### exp03_lora_r16 (LoRA rank 16)
+
+| Metric | Value |
+|---|---|
+| Perplexity | 18.39 |
+| Cross-Entropy | 2.912 |
+| ROUGE-1 | 0.2070 |
+| ROUGE-L | 0.1382 |
+| BERTScore F1 | 0.7522 |
+| Train runtime | ~13 min |
+
+**Result: Essentially identical to r=32 across all metrics. r=32 edges it by a tiny margin.**
+
+**What this tells us:**
+- The performance difference between r=16 and r=32 is within noise — neither is meaningfully better
+- r=16 uses half the parameters and trains in the same time — arguably more efficient
+- Diminishing returns above r=16 for this dataset size
+- r=8 will tell us if there's a meaningful floor — expecting slight degradation
+
+---
+
+### exp03_lora_r8 (LoRA rank sweep — pending)
 **Hypothesis:** Lower rank = more regularisation = potentially better generalisation on small dataset (138 papers). r=8 might outperform r=32 if r=32 is slightly overfitting to the training distribution.
 
 ### exp04 / exp05 (Interleaved dataset, 20% custom + 80% HF scientific_papers)
