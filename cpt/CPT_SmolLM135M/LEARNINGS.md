@@ -91,10 +91,35 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 
 ---
 
+## Catastrophic Forgetting Testing Plan
+
+After exp01_full_ft_bf16 completes:
+
+1. **Run lm-evaluation-harness** on 3 models:
+   - `HuggingFaceTB/SmolLM-135M` (base — reference)
+   - `models/exp01_full_ft_bf16/final` (full FT)
+   - `models/exp01_full_ft_bf16_ties/` (TIES merged)
+
+2. **Tasks:** HellaSwag (commonsense), ARC-Easy (general knowledge), PIQA (physical intuition)
+
+3. **What to look for:**
+   - If full FT drops benchmark scores vs base → catastrophic forgetting confirmed
+   - If TIES-merged model recovers benchmark scores while keeping domain gains → TIES is working
+   - Ideal outcome: TIES model has lower perplexity than base AND similar benchmark scores to base
+
+4. **Command:**
+```bash
+lm_eval --model hf --model_args pretrained=models/exp01_full_ft_bf16/final \
+    --tasks hellaswag,arc_easy,piqa --device cuda --output_path results/lm_eval_exp01_bf16.json
+```
+
+---
+
 ## Questions to Answer as Results Come In
 
 1. ~~How much does CPT help vs base model?~~ **Answered: 20% perplexity drop, all metrics improve.**
 2. Does full fine-tuning (bf16) beat LoRA? (running now as exp01_full_ft_bf16)
-3. Is the eval loss plateau a dataset size problem or a model capacity problem? (exp04/05 will test)
-4. Do ROUGE/BERTScore correlate with perplexity improvements, or diverge?
-5. Does lower LoRA rank (r=8/16) generalise better on this small dataset?
+3. Does TIES reduce catastrophic forgetting while preserving domain gains?
+4. Is the eval loss plateau a dataset size problem or a model capacity problem? (exp04/05 will test)
+5. Do ROUGE/BERTScore correlate with perplexity improvements, or diverge?
+6. Does lower LoRA rank (r=8/16) generalise better on this small dataset?

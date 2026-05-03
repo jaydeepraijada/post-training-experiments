@@ -1,0 +1,1 @@
+{"_runtime":0,"eval/bertscore_f1":0.7532079541683196,"eval/rouge2":0.021663745475792803,"eval/rougeL":0.14342650779196237,"eval/cross_entropy":2.9099875563795834,"_step":0,"_wandb":{"runtime":0},"eval/bleu":0.016957328811390733,"_timestamp":1.777814515878922e+09,"eval/rouge1":0.21346548684235506,"eval/perplexity":18.3565701434057}
