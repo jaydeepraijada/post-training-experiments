@@ -6,7 +6,9 @@
 |---|--------|-------------|-----------|--------|
 | 1a | `exp01_full_ft` | Full fine-tuning, 4-bit (broken) | `--full_training` | ❌ Broken |
 | 1b | `exp01_full_ft_bf16` | Full fine-tuning, bf16 (fixed) | `--full_training` | ✅ Done — worse than LoRA |
-| 2 | Full FT + TIES + forgetting eval | After best interleaved config found | `merge.py` + `lm_eval` | ⏳ Deferred to end |
+| 7 | `exp07_full_ft_interleaved` | Full FT bf16 on best interleaved dataset config | `--full_training` | ⏳ Deferred to end |
+| 8 | `exp07_ties` | TIES merge of exp07 back into base | `merge.py --density 0.2/0.3/0.5` | ⏳ Deferred to end |
+| 9 | Catastrophic forgetting eval | lm-eval HellaSwag + ARC-Easy + PIQA: base vs exp07 vs exp07_ties | `lm_eval` | ⏳ Deferred to end |
 | 3a | `exp03_lora_r8` | LoRA rank 8 | `--lora_r 8` | ⏳ Pending |
 | 3b | `exp03_lora_r16` | LoRA rank 16 | `--lora_r 16` | ✅ Done — ~same as r=32 |
 | 3c | `exp03_lora_r32` | LoRA rank 32 (baseline) | `--lora_r 32` | ✅ Done |
