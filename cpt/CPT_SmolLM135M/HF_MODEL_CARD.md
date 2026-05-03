@@ -11,7 +11,7 @@ tags:
 - arxiv
 - nlp
 datasets:
-- custom arxiv ML papers (188 papers, 2024-2026)
+- JaydeepR/arxiv-ml-papers-cpt
 ---
 
 # SmolLM-135M-CPT-LoRA-r32
