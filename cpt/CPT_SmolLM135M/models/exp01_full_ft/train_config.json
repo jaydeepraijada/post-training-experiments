@@ -1,0 +1,16 @@
+{
+  "base_model": "HuggingFaceTB/SmolLM-135M",
+  "lora_r": 0,
+  "rslora": false,
+  "max_seq_length": 512,
+  "batch_size": 32,
+  "grad_accum": 2,
+  "warmup_steps": 100,
+  "epochs": 10,
+  "learning_rate": 1e-05,
+  "full_training": true,
+  "mix": false,
+  "mix_ratio": null,
+  "max_grad_norm": 0.7,
+  "wandb_run_id": "oxijnsv3"
+}
