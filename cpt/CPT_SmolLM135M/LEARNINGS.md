@@ -125,8 +125,10 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 ### exp05 vs exp04 (Cleaned vs uncleaned)
 **Hypothesis:** Removing reference sections reduces noise (bibliography text is not useful for generation). Cleaning should improve metrics slightly.
 
-### exp06 (rsLoRA)
-**Hypothesis:** Rank-stabilised LoRA normalises updates by sqrt(r), keeping gradient scale stable. Should help at r=16 where standard LoRA updates might be slightly too large.
+### exp06a / exp06b (rsLoRA at r=16 and r=32)
+**Hypothesis:** rsLoRA normalises LoRA updates by `sqrt(r)`, keeping gradient scale stable as rank increases. Standard LoRA's update scale grows with rank — so rsLoRA's benefit should be more pronounced at r=32 than r=16.
+- exp06a (r=16): minimal benefit expected — standard LoRA is already stable at r=16 (grad_norm 0.219)
+- exp06b (r=32): more benefit expected — standard r=32 had grad_norm 0.248, slightly higher. rsLoRA should bring this down and potentially improve generalisation.
 
 ---
 
