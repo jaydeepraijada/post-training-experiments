@@ -166,7 +166,11 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 - exp04 ran 1720 steps (uncleaned = more chunks = runs longer)
 - exp05/06 ran only 820 steps (cleaned = fewer chunks = exhausts faster)
 
-**Fix for exp05b:** Switch to `stopping_strategy="all_exhausted"` + `--max_steps 3000`. This forces training to continue deep into the HF dataset, seeing ~192,000 sequences total (vs ~52,000 before). At 80% HF ratio = ~153,000 HF sequences — 37× more than before.
+**Fix attempted for exp05b:** Switch to `stopping_strategy="all_exhausted"` + `--max_steps 3000`. **This made things WORSE.**
+
+**exp05b result: PPL 23.61 — worse than base model (22.97).** With `all_exhausted`, 3000 steps = only 0.19 epochs of the combined dataset. Our 138 papers were seen barely once while 80% of steps were pure HF data. Model adapted to general ML papers and completely lost our domain signal.
+
+**Conclusion:** `first_exhausted` was actually correct for our data size. The real fix is more custom papers (500-1000), not a different stopping strategy.
 
 **exp06 rsLoRA observation:** grad_norm shot up to 0.557 (vs 0.219 for standard LoRA). rsLoRA at r=16 seems to destabilise training rather than help. Would need tuning or higher rank to benefit.
 
@@ -186,6 +190,32 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 4. ⏳ exp05b: cleaned + mixed + r=32 (reference best config)
 5. ⏳ Qualitative comparison: `compare.py` — base vs worst vs best on same prompts
 6. ⏳ Push best model to HuggingFace
+
+---
+
+## Final Results Summary
+
+| Model | PPL | ROUGE-1 | BERTScore F1 | vs Base |
+|---|---|---|---|---|
+| base_model | 22.97 | 0.178 | 0.736 | — |
+| exp01_full_ft (4-bit) | 22.91 | 0.178 | 0.734 | ❌ broken |
+| exp01_full_ft_bf16 | 22.88 | 0.170 | 0.737 | ❌ worse on ROUGE |
+| exp03_lora_r8 | 18.42 | 0.209 | 0.748 | ✅ +17.4% ROUGE |
+| exp03_lora_r16 | 18.39 | 0.207 | 0.752 | ✅ +16.3% ROUGE |
+| **exp03_lora_r32** | **18.36** | **0.213** | **0.753** | ✅ **+19.7% ROUGE — WINNER** |
+| exp04_interleave_noclean | 18.74 | 0.203 | 0.755 | ✅ slight BERTScore gain |
+| exp05_interleave_clean | 18.40 | 0.204 | 0.753 | ✅ similar to r=32 |
+| exp06_rslora_interleaved | 18.58 | 0.213 | 0.756 | ✅ ties r=32 on ROUGE |
+| exp05b (all_exhausted) | 23.61 | 0.198 | 0.756 | ❌ worse than base |
+
+**Winner: exp03_lora_r32** — LoRA r=32, small dataset, 10 epochs, no mixing.
+
+**Key learnings:**
+1. LoRA beats full fine-tuning on small datasets — regularisation > capacity
+2. Rank doesn't matter much (r=8/16/32 all plateau at same loss) — data is the bottleneck
+3. Interleaving with 80% HF data doesn't help with `first_exhausted` (only ~4k HF papers/epoch)
+4. `all_exhausted` + 80% HF kills domain signal entirely
+5. Next loop: download 500-1000 papers, use `first_exhausted` with the best config
 
 ---
 

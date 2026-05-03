@@ -12,7 +12,7 @@
 | 4 | `exp04_interleave_noclean` | 20% custom + 80% HF mix, no cleaning, LoRA r=16 | `--mix --mix_ratio 0.2 --lora_r 16` | ✅ Done |
 | 5 | `exp05_interleave_clean` | Same mix, cleaned dataset, LoRA r=16 | `--mix --mix_ratio 0.2 --lora_r 16` | ✅ Done |
 | 6 | `exp06_rslora_interleaved` | rsLoRA r=16 on interleaved cleaned dataset | `--mix --mix_ratio 0.2 --rslora --lora_r 16` | ✅ Done |
-| 5b | `exp05b_interleave_clean_r32` | Same as exp05 but r=32 — matches reference best config | `--mix --mix_ratio 0.2 --lora_r 32` | ⏳ Pending |
+| 5b | `exp05b_interleave_clean_r32` | Same as exp05 but r=32 + all_exhausted + max_steps=3000 | `--mix --mix_ratio 0.2 --lora_r 32 --max_steps 3000` | ❌ Worse than base — all_exhausted diluted domain signal |
 | F | Qualitative comparison | Generate text samples: base vs worst vs best model on same prompts | `compare.py` | ⏳ After exp05b |
 | F | Push to HuggingFace | Push best model | `huggingface-cli upload` | ⏳ Final step |
 
