@@ -24,3 +24,6 @@ evals/
 # Env
 .envrc
 .env
+
+# Claude Code internals
+.claude/
