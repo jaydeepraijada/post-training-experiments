@@ -35,6 +35,7 @@ def main():
     parser.add_argument("--wandb_project", type=str, default="cpt-smollm135m", help="W&B project name.")
     parser.add_argument("--no_wandb", action="store_true", help="Disable W&B logging.")
     parser.add_argument("--resume", action="store_true", help="Resume from latest checkpoint in output_dir.")
+    parser.add_argument("--max_steps", type=int, default=-1, help="Override max training steps (-1 = use epochs).")
     args = parser.parse_args()
 
     train_dataset = load_dataset("json", data_files=args.dataset_path, split="train")
@@ -53,6 +54,7 @@ def main():
             [train_dataset, general_data],
             probabilities=[args.mix_ratio, hf_ratio],
             seed=SEED,
+            stopping_strategy="all_exhausted",
         )
         print(f"Mixed dataset: {args.mix_ratio*100:.0f}% custom, {hf_ratio*100:.0f}% HF scientific_papers")
 
@@ -109,6 +111,7 @@ def main():
         "mix": args.mix,
         "mix_ratio": args.mix_ratio if args.mix else None,
         "max_grad_norm": max_grad_norm,
+        "max_steps": args.max_steps,
     }
 
     wandb_enabled = not args.no_wandb
@@ -135,6 +138,7 @@ def main():
         save_total_limit=10,
         per_device_train_batch_size=args.batch_size,
         num_train_epochs=args.epochs,
+        max_steps=args.max_steps,
         save_steps=20,
         gradient_accumulation_steps=2,
         warmup_steps=100,

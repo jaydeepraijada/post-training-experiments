@@ -151,6 +151,27 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 
 ---
 
+### exp04/05/06 (Interleaved dataset)
+
+| Exp | PPL | ROUGE-1 | BERTScore F1 |
+|---|---|---|---|
+| exp04 (uncleaned, r=16) | 18.74 | 0.203 | 0.755 |
+| exp05 (cleaned, r=16) | 18.40 | 0.204 | 0.753 |
+| exp06 (rsLoRA r=16) | 18.58 | 0.213 | 0.756 |
+
+**Result: Interleaved dataset didn't clearly beat small-paper LoRA (r=32: PPL 18.36, ROUGE 0.213).**
+
+**Root cause:** `stopping_strategy="first_exhausted"` in `interleave_datasets` caused training to stop when the custom dataset (5,200 chunks) was exhausted. At 20% sampling rate, this means only ~26,000 total samples per "epoch" — of which only ~20,800 were from HF (118k papers). We barely scratched the surface of the big dataset.
+
+- exp04 ran 1720 steps (uncleaned = more chunks = runs longer)
+- exp05/06 ran only 820 steps (cleaned = fewer chunks = exhausts faster)
+
+**Fix for exp05b:** Switch to `stopping_strategy="all_exhausted"` + `--max_steps 3000`. This forces training to continue deep into the HF dataset, seeing ~192,000 sequences total (vs ~52,000 before). At 80% HF ratio = ~153,000 HF sequences — 37× more than before.
+
+**exp06 rsLoRA observation:** grad_norm shot up to 0.557 (vs 0.219 for standard LoRA). rsLoRA at r=16 seems to destabilise training rather than help. Would need tuning or higher rank to benefit.
+
+---
+
 ## Catastrophic Forgetting — DROPPED
 
 **Decision:** Dataset (188 papers) is too small to cause meaningful forgetting. Full FT bf16 results were essentially identical to base model — if 43 minutes of full FT on 188 papers doesn't shift the weights meaningfully, there's nothing to forget. TIES and lm-eval benchmarks would just be noise.
@@ -173,6 +194,6 @@ This is the reference point for all experiments. Any run that doesn't beat this 
 1. ~~How much does CPT help vs base model?~~ **Answered: 20% perplexity drop, all metrics improve.**
 2. ~~Does full fine-tuning (bf16) beat LoRA on small data?~~ **Answered: No — LoRA wins on 138 papers. Full FT overfits.**
 3. ~~Does lower LoRA rank (r=8/16) generalise better than r=32 on small dataset?~~ **Answered: No difference — dataset is the bottleneck. Use r=16 for efficiency.**
-4. Is the eval loss plateau a dataset size problem or model capacity problem? (exp04/05 will test)
+4. ~~Is the eval loss plateau a dataset size problem?~~ **Root cause found: `stopping_strategy="first_exhausted"` caused training to stop after ~4,000 HF papers/epoch — barely leveraging the big dataset. Fixed with `all_exhausted` + `--max_steps 3000` for exp05b.**
 5. Does the interleaved large dataset unlock full fine-tuning's potential?
 6. Does TIES reduce catastrophic forgetting while preserving domain gains? (final experiment)
