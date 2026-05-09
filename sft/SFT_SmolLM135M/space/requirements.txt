@@ -1,0 +1,4 @@
+torch>=2.7
+transformers>=4.57.6
+peft>=0.18.1
+gradio>=6.11.0
