@@ -17,6 +17,7 @@ data/
 !evals/
 evals/*
 !evals/*.json
+!evals/*.jsonl
 
 # Env
 .envrc
