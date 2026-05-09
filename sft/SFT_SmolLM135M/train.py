@@ -22,10 +22,22 @@ parser.add_argument("--load_in_4bit", action="store_true", default=True)
 parser.add_argument("--conversation_extension", type=int, default=2)
 parser.add_argument("--variations", type=int, default=2)
 parser.add_argument("--learning_rate", "-lr", type=float, default=2e-4)
+parser.add_argument("--wandb_project", type=str, default="sft-smollm135m")
+parser.add_argument("--wandb_run_name", type=str, default=None)
+parser.add_argument("--no_wandb", action="store_true")
+parser.add_argument("--resume_from_checkpoint", type=str, default=None)
 args = parser.parse_args()
 
 if args.conversation_extension == 1:
     args.variations = 1
+
+if not args.no_wandb:
+    import wandb
+    wandb.init(
+        project=args.wandb_project,
+        name=args.wandb_run_name or args.output_model_id,
+        config=vars(args),
+    )
 
 model, tokenizer = FastLanguageModel.from_pretrained(
     model_name=args.base_model_id,
@@ -109,7 +121,7 @@ trainer = SFTTrainer(
         optim="adamw_8bit",
         weight_decay=0.001,
         lr_scheduler_type="linear",
-        report_to="none",
+        report_to="none" if args.no_wandb else "wandb",
         max_grad_norm=1.0,
         seed=SEED,
         max_length=args.max_seq_length,
@@ -136,7 +148,7 @@ trainer.add_callback(
     EarlyStoppingCallback(early_stopping_patience=3, early_stopping_threshold=0.0)
 )
 
-trainer.train()
+trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
 
 model.save_pretrained(f"models/{args.output_model_id}/final")
 tokenizer.save_pretrained(f"models/{args.output_model_id}/final")
