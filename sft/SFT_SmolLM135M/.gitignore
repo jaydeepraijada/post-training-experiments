@@ -19,6 +19,10 @@ evals/*
 !evals/*.json
 !evals/*.jsonl
 
+# Runtime
+unsloth_compiled_cache/
+wandb/
+
 # Env
 .envrc
 .env
