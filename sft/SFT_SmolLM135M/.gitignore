@@ -9,11 +9,14 @@ wheels/
 
 # Data & outputs
 models/*
-evals/*
 *.jsonl
-*.json
 *.csv
 data/
+
+# Allow eval results
+!evals/
+evals/*
+!evals/*.json
 
 # Env
 .envrc

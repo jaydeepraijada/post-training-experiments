@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 from openai import AsyncOpenAI
 import outlines
 
-JUDGE_MODEL = "openai/gpt-4.1-mini"
+JUDGE_MODEL = "grok-3-mini"
 SEMAPHORE = 50
 
 JUDGE_PROMPT = """\
@@ -49,7 +49,7 @@ class JudgeScore(BaseModel):
 parser = argparse.ArgumentParser(description="Async LLM judge for eval JSONL files.")
 parser.add_argument("--input_file", "-i", type=str, required=True)
 parser.add_argument("--output_file", "-o", type=str, default=None)
-parser.add_argument("--api_key", type=str, default=os.environ.get("OPENROUTER_API_KEY"))
+parser.add_argument("--api_key", type=str, default=os.environ.get("XAI_API_KEY"))
 parser.add_argument("--limit", "-n", type=int, default=None)
 args = parser.parse_args()
 
@@ -59,7 +59,7 @@ if not args.api_key:
 if args.output_file is None:
     args.output_file = args.input_file.replace(".jsonl", "_judged.jsonl")
 
-client = AsyncOpenAI(api_key=args.api_key, base_url="https://openrouter.ai/api/v1")
+client = AsyncOpenAI(api_key=args.api_key, base_url="https://api.x.ai/v1")
 model = outlines.from_openai(client, JUDGE_MODEL)
 
 
