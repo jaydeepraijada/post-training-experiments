@@ -18,16 +18,78 @@ datasets:
 
 # SmolLM-135M-SFT-exp01
 
-Supervised fine-tuning of [SmolLM-135M-CPT-LoRA-r32](https://huggingface.co/JaydeepR/SmolLM-135M-CPT-LoRA-r32) on 300K synthetic ML paper instruction pairs.
+Supervised fine-tuning of [SmolLM-135M-CPT-LoRA-r32](https://huggingface.co/JaydeepR/SmolLM-135M-CPT-LoRA-r32) on 300K synthetic ML paper instruction pairs. The result is a structured research assistant API for ML papers — not a general chatbot.
 
 This is **exp01** in a series of SFT experiments on top of the CPT-adapted SmolLM-135M.
 
+---
+
+## Full Pipeline
+
+```
+arXiv ML papers (188)
+        │
+        ▼
+   text-albumentations
+   (chunking + constrained synthetic generation)
+        │
+        ▼
+paperbd/paper_instructions_300K-v1
+   (300K instruction-response pairs)
+        │
+        ▼
+   SFT training (LoRA r=32, ChatML, train_on_responses_only)
+        │
+        ▼
+   SmolLM-135M-SFT-exp01
+        │
+        ▼
+   PaperResearcher API (10 structured tasks)
+```
+
+---
+
 ## Model Description
 
-- **Base model:** `paperbd/smollm_135M_arxiv_cpt` (CPT-adapted SmolLM-135M, merged)
+- **Base model:** `paperbd/smollm_135M_arxiv_cpt` — SmolLM-135M after continued pre-training on arXiv ML papers
 - **Method:** Supervised Fine-Tuning (SFT) with LoRA + `train_on_responses_only`
 - **Domain:** ML/arXiv paper research tasks
-- **Task:** Instruction following — bullets, QA, triplets, retrieval, comparison, etc.
+- **Design:** Restricted API — 10 fixed task types, not a general chatbot
+
+---
+
+## Data Generation Pipeline
+
+The training dataset was built from raw arXiv ML papers using a synthetic data generation pipeline:
+
+### 1. Chunking
+Raw paper text is split into overlapping 500-word chunks (100-word overlap) to create manageable context windows for generation.
+
+### 2. Augmentation with `text-albumentations`
+Each chunk is passed through stochastic augmentation tasks. Each task runs with 25% probability per chunk, ensuring dataset diversity:
+
+| Task | Description | Output type |
+|---|---|---|
+| `bullet_augmentation` | Extract key points as markdown bullets | `list[str]` |
+| `qa_pair_augmentation` | Generate question-answer pairs | `list[QAPair]` |
+| `rephrase_augmentation` | Elaborate and restate the passage | `str` |
+| `continuation_augmentation` | Continue from a passage prefix | `str` |
+| `triplet_augmentation` | Extract knowledge graph triplets | `list[Triplet]` |
+| `retrieval_augmentation` | Cross-chunk: which passage answers a question | `RetrievalResult` |
+| `comparison_augmentation` | Cross-chunk: compare two passages | `str` |
+
+### 3. Constrained Decoding via Outlines
+All generation during data prep uses **[Outlines](https://github.com/dottxt-ai/outlines)** for structured output — a constrained decoding library that guarantees the generator returns outputs matching a predefined schema (Pydantic model or regex). This ensures:
+- QA pairs always have valid `question` / `answer` fields
+- Triplets always follow `(subject, relation, object)` format
+- Retrieval results always return a valid passage index
+
+Default runtime: `mlx-community/Qwen3.5-4B-OptiQ-4bit` via MLX (Apple Silicon). Async and batch variants available for large-scale generation.
+
+### 4. Dataset
+The final dataset `paperbd/paper_instructions_300K-v1` contains **300K instruction-response pairs** across all task types, uploaded to HuggingFace for reuse.
+
+---
 
 ## Training Details
 
@@ -46,46 +108,95 @@ This is **exp01** in a series of SFT experiments on top of the CPT-adapted SmolL
 | Total steps | 11,355 |
 | Sequence length | 2048 (packed) |
 | Chat template | ChatML |
+| Response-only training | Yes — loss on assistant turns only |
+| Data variations | 2 (conversation extension) → ~600K effective examples |
 | Hardware | NVIDIA RTX 4090 |
 | Training time | ~10 hours |
 
-## Training Data
+---
 
-- **Dataset:** `paperbd/paper_instructions_300K-v1` — 300K synthetic instruction-response pairs generated from arXiv ML papers
-- **Variations:** 2 (conversation extension) → ~600K effective training examples
-- **Train/val split:** 98% / 2%
-- **Response-only training:** Loss computed only on assistant turns, not user prompts
+## Evaluation
 
-## Evaluation Results
+### Method
+1000 samples drawn from the `paper_instructions_300K-v1` test split. The fine-tuned model generates responses, which are then scored by `grok-3-mini` as an LLM judge.
 
-Evaluated on 1000 samples from the `paper_instructions_300K-v1` test split, judged by `grok-3-mini`:
+### Judge Prompt (4 dimensions, 1–5 scale)
+- **Faithfulness** — Does the response contain only factually correct claims? Penalise hallucinations.
+- **Answer Correctness** — How closely does the response match the ground truth semantically?
+- **Relevance** — Does the response directly address what was asked, without padding or going off-topic?
+- **Completeness** — Does the response cover the key points from the ground truth without omitting important details?
 
-| Metric | Score (1-5) |
+### Results
+
+| Metric | Score (1–5) |
 |---|---|
 | Faithfulness | 2.70 |
 | Answer Correctness | 1.98 |
-| Relevance | 3.04 |
+| Relevance | **3.04** |
 | Completeness | 1.85 |
 | **Overall** | **2.39** |
 
-## How to Use
+**Interpretation:** Relevance is the strongest dimension — the model stays on topic. Answer correctness and completeness are limited by the 135M parameter count; the model understands task structure but struggles to recall and reproduce factual content precisely.
 
-### As PaperResearcher API
+---
+
+## PaperResearcher API
+
+The model is designed to be used as a structured API, not a free-form chatbot. The `PaperResearcher` class exposes 10 typed methods, each using the exact instruction strings the model was trained on:
 
 ```python
 from paper_researcher import PaperResearcher
 
 researcher = PaperResearcher("JaydeepR/SmolLM-135M-SFT-exp01")
-
 passage = "Attention mechanisms compute weighted sums of values..."
 
-bullets = researcher.extract_bullets(passage)
-qa_pairs = researcher.generate_qa_pairs(passage)
-triplets = researcher.extract_triplets(passage)
-answer = researcher.answer("What does attention compute?", passage)
+# Extract key points
+bullets: list[str] = researcher.extract_bullets(passage)
+
+# Generate Q&A pairs
+pairs: list[QAPair] = researcher.generate_qa_pairs(passage)
+# → [QAPair(question="What does attention compute?", answer="Weighted sums of values")]
+
+# Extract knowledge graph triplets
+triplets: list[Triplet] = researcher.extract_triplets(passage)
+# → [Triplet(subject="attention", relation="computes", object="weighted sums")]
+
+# Answer a question given a passage
+answer: str = researcher.answer("What does attention compute?", passage)
+
+# Rephrase and elaborate
+rephrased: str = researcher.rephrase(passage)
+
+# Continue a passage from its beginning
+continuation: str = researcher.continue_from(passage[:200])
+
+# Extract a single key fact
+fact: str = researcher.extract_fact(passage)
+
+# Generate a question from a passage
+question: str = researcher.generate_question(passage)
+
+# Compare two passages
+comparison: str = researcher.compare(passage_a, passage_b)
+
+# Retrieval: which passage answers the question?
+result: RetrievalResult = researcher.find_relevant(question, [passage_a, passage_b])
+# → RetrievalResult(index=0, reasoning="Passage 1 directly defines...")
 ```
 
-### Raw inference
+### Return Types
+
+| Method | Return Type | Description |
+|---|---|---|
+| `extract_bullets` | `list[str]` | Parsed bullet points |
+| `generate_qa_pairs` | `list[QAPair]` | `.question` and `.answer` fields |
+| `extract_triplets` | `list[Triplet]` | `.subject`, `.relation`, `.object` fields |
+| `find_relevant` | `RetrievalResult` | `.index` (0-based), `.reasoning` |
+| All others | `str` | Raw text response |
+
+---
+
+## Raw Inference
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -99,36 +210,35 @@ model = AutoModelForCausalLM.from_pretrained(base_model_id)
 model = PeftModel.from_pretrained(model, adapter_id)
 
 messages = [
-    {"role": "system", "content": "You are an expert in AI and ML research."},
-    {"role": "user", "content": "Extract the key points from this passage as bullet points.\n\nAttention mechanisms..."},
+    {"role": "system", "content": "You are an expert in AI and ML research. Your answers are concise and helpful."},
+    {"role": "user", "content": "Extract the important points from this passage as markdown bullet points.\n\nAttention mechanisms..."},
 ]
 prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 inputs = tokenizer(prompt, return_tensors="pt")
-outputs = model.generate(**inputs, max_new_tokens=256, repetition_penalty=1.1)
+outputs = model.generate(**inputs, max_new_tokens=256, repetition_penalty=1.1, no_repeat_ngram_size=4)
 print(tokenizer.decode(outputs[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True))
 ```
 
-## Supported Tasks
-
-| Task | Method |
-|---|---|
-| Extract bullet points | `researcher.extract_bullets(passage)` |
-| Generate Q&A pairs | `researcher.generate_qa_pairs(passage)` |
-| Generate a question | `researcher.generate_question(passage)` |
-| Extract a fact | `researcher.extract_fact(passage)` |
-| Answer a question | `researcher.answer(question, passage)` |
-| Rephrase passage | `researcher.rephrase(passage)` |
-| Continue passage | `researcher.continue_from(passage_start)` |
-| Extract knowledge graph | `researcher.extract_triplets(passage)` |
-| Compare two passages | `researcher.compare(passage_a, passage_b)` |
-| Retrieval | `researcher.find_relevant(question, passages)` |
+---
 
 ## Limitations
 
-- 135M parameter model — limited factual recall and reasoning
-- Trained on synthetic data — may not generalise to all instruction styles
-- Relevance is the strongest dimension (3.04/5); correctness and completeness are weak (< 2/5)
-- Best used for structured extraction tasks, not open-ended QA
+- 135M parameter model — limited factual recall and reasoning capacity
+- Trained on synthetic data — instruction format matters; use the exact prompts from `tasks.py`
+- Relevance strongest (3.04/5); correctness and completeness weak (< 2/5)
+- Best suited for structured extraction (bullets, triplets, QA) over open-ended generation
+- No comparison against uninstructed base model yet — exp02 planned
+
+---
+
+## Related Models
+
+| Model | Description |
+|---|---|
+| [JaydeepR/SmolLM-135M-CPT-LoRA-r32](https://huggingface.co/JaydeepR/SmolLM-135M-CPT-LoRA-r32) | CPT base (this model's starting point) |
+| [HuggingFaceTB/SmolLM-135M](https://huggingface.co/HuggingFaceTB/SmolLM-135M) | Original base model |
+
+---
 
 ## Citation
 
