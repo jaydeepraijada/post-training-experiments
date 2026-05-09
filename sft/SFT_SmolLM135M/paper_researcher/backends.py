@@ -90,7 +90,7 @@ class HFBackend(Backend):
         temperature = kwargs.pop("temperature", DEFAULT_TEMPERATURE)
         max_new_tokens = kwargs.pop("max_new_tokens", DEFAULT_MAX_NEW_TOKENS)
         input_ids = self.tokenizer(prompt, return_tensors="pt").input_ids.to(self.model.device)
-        streamer = TextIteratorStreamer(self.tokenizer, skip_special_tokens=True)
+        streamer = TextIteratorStreamer(self.tokenizer, skip_prompt=True, skip_special_tokens=True)
         thread = Thread(target=self.model.generate, kwargs=dict(
             input_ids=input_ids,
             max_new_tokens=max_new_tokens,
