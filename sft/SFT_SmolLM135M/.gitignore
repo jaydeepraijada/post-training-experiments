@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+
+# Data & outputs
+models/*
+evals/*
+*.jsonl
+*.json
+*.csv
+data/
+
+# Env
+.envrc
+.env
