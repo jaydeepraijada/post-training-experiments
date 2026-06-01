@@ -23,6 +23,8 @@ evals/*
 # Runtime
 unsloth_compiled_cache/
 wandb/
+logs/
+*.log
 
 # Env
 .envrc
