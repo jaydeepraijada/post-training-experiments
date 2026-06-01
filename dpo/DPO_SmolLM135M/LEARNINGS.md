@@ -18,6 +18,18 @@ A running log of insights from each DPO/ORPO experiment.
 
 ---
 
+## Findings
+
+### dpo_default — DPO works at 135M and doesn't collapse diversity (2026-06-01)
+
+First preference-tuning run. DPO (β=0.1, LoRA r=32) on `paper_preference_150K-v1`, 3 epochs, ~6h17m on a 3090.
+
+- **It learned the preference.** Held-out reward accuracy 0.5 → **0.72**, eval loss 0.577 → **0.457**, margins 0.46 → 1.65. Steady, healthy curves.
+- **No mode collapse.** EAD/SBERT/Vendi all flat vs the SFT baseline (within +0.3–2.6%). The big worry with DPO — narrowing the output distribution — did not happen at β=0.1. Diversity is *not* the binding constraint here.
+- **Mild overfitting is the real limit.** Train reward accuracy hit ~0.85 vs eval 0.72; eval loss plateaued by epoch ~2.7. So **more epochs would overfit, not help** — 3 is right. The lever for more quality is a **lower β** (let the policy move further from the SFT ref), not longer training.
+- **Reward drift is normal.** Both chosen and rejected rewards go increasingly negative (KL drift from the frozen ref); the *margin* growing is the signal that matters.
+- **Open question:** eval reward accuracy (0.72) measures agreement with the LLM-judge that *made* the pairs — it's not an independent quality signal. To know if outputs are actually better, train the reward model or run a win-rate judge. (Win-rate is partly circular since the same judge ranked the data.)
+
 ## Hypotheses for Upcoming Experiments
 
 ### baseline_diversity — diversity of the SFT model (pre-DPO)
