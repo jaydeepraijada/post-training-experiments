@@ -14,6 +14,8 @@ A running log of insights from each DPO/ORPO experiment.
 
 - **`SYSTEM_PROMPT` is vendored** — copied byte-for-byte from the SFT stage into `prompts.py`. It must match the string the model was trained on; do not edit it.
 
+- **DPO OOMs on 24GB at batch 16 / seq 2048** — DPO runs a reference forward and upcasts full-vocab logits to fp32 (`accelerate.convert_to_fp32` → `tensor.float()`), a single `~(2*batch)*seq*vocab*4` byte allocation (~9.8GB here). It dies on step 1. Fix: shrink batch **and** sequence — `batch 8 / grad_accum 16 / max_seq_length 1024 / max_prompt_length 768` keeps that tensor ~3GB and fits a 3090/4090 with margin (effective batch stays 128). Also set `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`. The model loading + tokenization caches, so an OOM retry is cheap (~2 min).
+
 ---
 
 ## Hypotheses for Upcoming Experiments

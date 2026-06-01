@@ -13,14 +13,20 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Reduce allocator fragmentation (helps the large fp32 logits upcast in DPO).
+export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
+
 SFT_MODEL="${SFT_MODEL:-paperbd/smollm_135M_neuraltxt_v1}"
 DATASET="${DATASET:-paperbd/paper_preference_150K-v1}"
 METHOD="${METHOD:-dpo}"
 RUN_ID="${RUN_ID:-dpo_default}"
-# DPO holds chosen+rejected per step (~2x SFT memory). 16 is the safe default
-# on a 24GB 4090; grad_accum=8 keeps the effective batch at ~128.
-BATCH_SIZE="${BATCH_SIZE:-16}"
-GRAD_ACCUM="${GRAD_ACCUM:-8}"
+# DPO computes a reference forward and upcasts full-vocab logits to fp32:
+# ~ (2*batch) * seq * vocab * 4 bytes. On a 24GB card, batch 16 / seq 2048 OOMs.
+# batch 8 + seq 1024 keeps that tensor ~3GB; grad_accum 16 keeps eff batch ~128.
+BATCH_SIZE="${BATCH_SIZE:-8}"
+GRAD_ACCUM="${GRAD_ACCUM:-16}"
+MAX_SEQ_LEN="${MAX_SEQ_LEN:-1024}"
+MAX_PROMPT_LEN="${MAX_PROMPT_LEN:-768}"
 DIVERSITY_SAMPLES="${DIVERSITY_SAMPLES:-100}"
 TEMPS="0.3 0.5 0.7 1.0"
 
@@ -51,7 +57,8 @@ echo "== Step 1: ${METHOD} training =="
 uv run python train_preference.py \
     --method "$METHOD" -o "$RUN_ID" \
     --base_model_id "$SFT_MODEL" --dataset "$DATASET" \
-    --batch_size "$BATCH_SIZE" --grad_accum "$GRAD_ACCUM"
+    --batch_size "$BATCH_SIZE" --grad_accum "$GRAD_ACCUM" \
+    --max_seq_length "$MAX_SEQ_LEN" --max_prompt_length "$MAX_PROMPT_LEN"
 
 # ── Step 2: post-train diversity on the merged model (collapse check) ─────────
 echo "== Step 2: post-${METHOD} diversity (compare to baseline above) =="
