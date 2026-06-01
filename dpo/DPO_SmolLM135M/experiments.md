@@ -79,7 +79,7 @@ Preference dataset: `paperbd/paper_preference_150K-v1` unless noted.
 
 **Next experiment:** `reward_model` for an independent quality signal, or `orpo_default` / `dpo_beta_sweep`. The diversity headroom suggests safety isn't the constraint; the train/eval gap is — so **more epochs would overfit, not help**. A **lower β** (let the policy move further) is the lever to try for more quality, watching the gap. Win-rate judge still deferred (redundant with the ranking judge that made the data).
 
-**HuggingFace:** `paperbd/smollm_135M_neuraltxt_dpo_v1` (merged 16-bit)
+**HuggingFace:** [`JaydeepR/SmolLM-135M-neuraltxt-dpo-v1`](https://huggingface.co/JaydeepR/SmolLM-135M-neuraltxt-dpo-v1) (merged 16-bit + LoRA adapter)
 **W&B:** none (report_to="none")
 
 ---

@@ -13,7 +13,7 @@ tags:
   - smollm
 ---
 
-# SmolLM-135M — DPO (neuraltxt_dpo_v1)
+# SmolLM-135M-neuraltxt-dpo-v1
 
 Preference-tuned (DPO) version of the SFT'd SmolLM-135M ML-paper research assistant. This is **stage 3** of a CPT → SFT → DPO pipeline on a 135M-parameter model.
 
