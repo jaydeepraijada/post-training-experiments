@@ -1,0 +1,16 @@
+# Training artifacts
+outputs/
+wandb/
+*.bin
+*.safetensors
+checkpoint-*/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Keep results/runs.csv tracked (it's the experiment record), ignore scratch
+results/*.tmp

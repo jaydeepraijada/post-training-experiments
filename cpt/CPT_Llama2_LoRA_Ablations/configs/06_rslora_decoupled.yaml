@@ -1,0 +1,16 @@
+extends: base.yaml
+name: 06_rslora_decoupled
+# The full Unsloth CPT recipe: all linear layers + rsLoRA + decoupled embedding LR.
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+  - embed_tokens
+  - lm_head
+use_rslora: true
+learning_rate: 1.0e-4
+embedding_learning_rate: 2.5e-5

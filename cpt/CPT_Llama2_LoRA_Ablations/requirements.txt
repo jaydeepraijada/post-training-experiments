@@ -1,0 +1,15 @@
+# Core training stack (install order matters on Colab/T4 — see README)
+# unsloth is installed from git on Colab; pin via the official instructions for your CUDA/torch.
+unsloth @ git+https://github.com/unslothai/unsloth.git
+torch
+trl
+peft
+accelerate
+bitsandbytes
+xformers
+datasets
+transformers
+
+# Experiment harness
+pyyaml
+wandb

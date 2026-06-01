@@ -1,0 +1,15 @@
+extends: base.yaml
+name: 03_embed_lmhead
+# +1 knob vs 02: also adapt the input embeddings and the LM head, at the SAME LR.
+# This is the deliberately-naive step — it should HURT, demonstrating why embeddings
+# need special treatment (fixed in 04/05/06).
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+  - embed_tokens
+  - lm_head

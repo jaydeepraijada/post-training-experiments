@@ -1,0 +1,16 @@
+extends: base.yaml
+name: 05_decoupled_lr
+# vs 03: keep rsLoRA OFF, but give embed_tokens/lm_head a 10x smaller LR via UnslothTrainer.
+# Isolates the effect of decoupled embedding LR alone.
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+  - embed_tokens
+  - lm_head
+learning_rate: 5.0e-4
+embedding_learning_rate: 5.0e-5

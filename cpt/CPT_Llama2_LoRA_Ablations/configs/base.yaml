@@ -1,0 +1,42 @@
+# Shared constants for every ablation. Individual configs `extends: base.yaml`
+# and override ONLY the knob being ablated. Keep everything else identical —
+# that identity is what makes this a controlled experiment.
+
+# --- Model ---
+model_name: unsloth/llama-2-7b-bnb-4bit
+max_seq_length: 4096
+load_in_4bit: true
+
+# --- LoRA ---
+r: 256
+lora_alpha: 32
+lora_dropout: 0
+use_rslora: false
+use_gradient_checkpointing: unsloth
+random_state: 3407
+# The full attention + MLP set MINUS gate_proj and the embeddings — this is the
+# "paper" baseline. Configs add modules on top.
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - up_proj
+  - down_proj
+
+# --- Data ---
+dataset_name: ise-uiuc/Magicoder-Evol-Instruct-110K
+val_size: 1000          # held-out examples for perplexity (the actual outcome metric)
+seed: 3407              # data split + trainer seed; override on CLI for multi-seed runs
+packing: true           # pack short sequences -> up to ~5x faster; constant across the sweep
+
+# --- Optimization (held constant across the sweep) ---
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 64
+max_steps: 50
+warmup_steps: 5
+learning_rate: 5.0e-4
+embedding_learning_rate: null   # null -> plain SFTTrainer; a value -> UnslothTrainer w/ decoupled LR
+optim: lion_8bit
+weight_decay: 0.0
+lr_scheduler_type: cosine

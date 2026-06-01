@@ -9,6 +9,9 @@ Domain-adapting [SmolLM-135M](https://huggingface.co/HuggingFaceTB/SmolLM-135M) 
 
 **Best model:** [`JaydeepR/SmolLM-135M-CPT-LoRA-r32`](https://huggingface.co/JaydeepR/SmolLM-135M-CPT-LoRA-r32)
 
+### CPT Llama-2-7B — LoRA recipe ablations
+Isolating *which* of Unsloth's CPT recommendations actually matter, one knob at a time (extra LoRA target modules → rsLoRA → decoupled embedding LR), on a code corpus. Config-driven harness; outcome metric is held-out perplexity. See [`cpt/CPT_Llama2_LoRA_Ablations/`](cpt/CPT_Llama2_LoRA_Ablations/) (results table in that folder, since its model/dataset aren't comparable to the SmolLM rows above).
+
 ## The Experiment Loop
 
 Every experiment follows this loop:

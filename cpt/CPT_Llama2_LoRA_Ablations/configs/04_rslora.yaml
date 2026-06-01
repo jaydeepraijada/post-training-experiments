@@ -1,0 +1,17 @@
+extends: base.yaml
+name: 04_rslora
+# vs 03: turn on rank-stabilized LoRA (alpha/sqrt(r) scaling, recommended at r=256).
+# NOTE: the original notebooks also dropped LR 5e-4 -> 5e-5 here, confounding two knobs.
+# For a clean single-knob ablation, keep LR at 5e-4 (uncomment to reproduce the notebook).
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+  - embed_tokens
+  - lm_head
+use_rslora: true
+# learning_rate: 5.0e-5   # <- uncomment ONLY to reproduce the original notebook exactly

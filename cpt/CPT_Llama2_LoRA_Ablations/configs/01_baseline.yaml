@@ -1,0 +1,3 @@
+extends: base.yaml
+name: 01_baseline
+# Attention + up/down_proj only, single LR, no rsLoRA. Reproduces the original paper setup.

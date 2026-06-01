@@ -1,0 +1,11 @@
+extends: base.yaml
+name: 02_gate_proj
+# +1 knob vs 01: add the SwiGLU gate projection.
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
