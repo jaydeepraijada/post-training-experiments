@@ -206,7 +206,13 @@ def main() -> None:
     final_dir = f"{output_dir}/final"
     model.save_pretrained(final_dir)
     tokenizer.save_pretrained(final_dir)
-    print(f"Saved to {final_dir}")
+    print(f"Saved adapter to {final_dir}")
+
+    # Also save a merged 16-bit model so downstream scripts that load with plain
+    # transformers (e.g. diversity_evals/generate_responses.py) can consume it.
+    merged_dir = f"{output_dir}/merged"
+    model.save_pretrained_merged(merged_dir, tokenizer, save_method="merged_16bit")
+    print(f"Saved merged model to {merged_dir}")
 
 
 if __name__ == "__main__":

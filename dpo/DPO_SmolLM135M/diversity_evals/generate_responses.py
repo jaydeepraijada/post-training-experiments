@@ -72,7 +72,7 @@ parser.add_argument(
     "--batch_size",
     "-bs",
     type=int,
-    default=1,
+    default=32,
     help="Batch size for generation. Only used for transformers path; MLX path processes one prompt at a time.",
 )
 parser.add_argument(
