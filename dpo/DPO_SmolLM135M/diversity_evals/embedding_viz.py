@@ -11,7 +11,7 @@ Pipeline:
      - two side-by-side panels (UMAP vs PCA)
 
 Usage:
-    uv run preference_optimization/embedding_viz.py
+    uv run embedding_viz.py
 """
 from __future__ import annotations
 
@@ -31,10 +31,10 @@ from plotly.subplots import make_subplots
 
 DEFAULT_SBERT = "sentence-transformers/all-MiniLM-L6-v2"
 DEFAULT_INPUT = (
-    "preference_optimization/evals/"
+    "evals/"
     "smollm_135M_neuraltxt_v1_diversity_n100_r4_final_nogt.jsonl"
 )
-DEFAULT_OUT_DIR = "preference_optimization/evals/images"
+DEFAULT_OUT_DIR = "evals/images"
 
 TEMPS = [0.3, 0.5, 0.7, 1.0]
 N_PER_TEMP = 4

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 from pathlib import Path
 
 import torch
@@ -10,21 +9,11 @@ from datasets import load_dataset
 from peft import PeftModel
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-
-try:
-    from preference_optimization.chat_formatting import (  # noqa: E402
-        build_reward_conversations,
-        normalize_explicit_preference_example,
-    )
-except ModuleNotFoundError:
-    sys.path.insert(0, str(PROJECT_ROOT / "preference_optimization"))
-    from chat_formatting import (  # type: ignore  # noqa: E402
-        build_reward_conversations,
-        normalize_explicit_preference_example,
-    )
+# Run from inside this experiment folder (dpo/DPO_SmolLM135M/) for flat imports.
+from chat_formatting import (  # noqa: E402
+    build_reward_conversations,
+    normalize_explicit_preference_example,
+)
 
 SEED = 3407
 
@@ -44,7 +33,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--output",
-        default="preference_optimization/evals/reward2_final_dpo_test_100.jsonl",
+        default="evals/reward2_final_dpo_test_100.jsonl",
     )
     return parser.parse_args()
 

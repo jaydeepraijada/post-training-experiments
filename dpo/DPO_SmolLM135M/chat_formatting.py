@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from paper_researcher.tasks import SYSTEM_PROMPT
+from prompts import SYSTEM_PROMPT
 
 Message = dict[str, str]
 

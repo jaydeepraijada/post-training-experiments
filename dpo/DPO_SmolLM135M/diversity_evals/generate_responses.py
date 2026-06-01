@@ -9,12 +9,12 @@ Output JSONL format (input to diversity.py):
   {"id": 0, "question": "...", "responses": ["r1", "r2", ...]}
 
 Usage (transformers):
-    uv run preference_optimization/generate_responses.py \\
+    uv run generate_responses.py \\
         -m paperbd/smollm_135M_neuraltxt_v1 \\
         --num_samples 100 --n_responses 4 --temperatures 0.3 0.5 0.7 1.0
 
 Usage (MLX on Mac):
-    uv run preference_optimization/generate_responses.py \\
+    uv run generate_responses.py \\
         -m paperbd/smollm_135M_neuraltxt_v1 \\
         --mlx \\
         --num_samples 100 --n_responses 4 --temperatures 0.3 0.5 0.7 1.0
@@ -100,12 +100,12 @@ dataset = load_dataset("paperbd/paper_instructions_300K-v1", split="test")
 dataset = dataset.shuffle(seed=args.seed).select(range(args.num_samples))
 examples = list(dataset)
 
-os.makedirs("preference_optimization/evals", exist_ok=True)
+os.makedirs("evals", exist_ok=True)
 
 if args.output_file is None:
     model_name = os.path.basename(os.path.normpath(args.model_path))
     out_path = (
-        f"preference_optimization/evals/"
+        f"evals/"
         f"{model_name}_diversity_n{args.num_samples}_r{args.n_responses}.jsonl"
     )
 else:

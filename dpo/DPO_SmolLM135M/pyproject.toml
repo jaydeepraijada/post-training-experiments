@@ -1,0 +1,32 @@
+[project]
+name = "dpo-smollm135m"
+version = "0.1.0"
+description = "Preference optimization (DPO/ORPO) experiments on SmolLM-135M"
+requires-python = ">=3.12"
+dependencies = [
+    "datasets>=3.6",
+    "matplotlib>=3.9",
+    "numpy>=1.26",
+    "openai>=1.0",
+    "outlines>=1.2.12",
+    "peft>=0.18.1",
+    "plotly>=5.22",
+    "pydantic>=2.0",
+    "scikit-learn>=1.5",
+    "scipy>=1.13",
+    "sentence-transformers>=3.0",
+    "torch>=2.7",
+    "transformers>=4.57.6",
+    "trl>=0.24.0",
+    "umap-learn>=0.5.6",
+    "unsloth>=2026.1.4",
+]
+
+[project.optional-dependencies]
+# Apple-Silicon only. Kept out of core deps because mlx breaks Linux/CUDA pods
+# (see ../../sft/SFT_SmolLM135M/LEARNINGS.md). The local MLX ranker
+# (generate_ranked_pairs.py) additionally needs `mlx_vlm_batch_outlines`,
+# which is installed from its own source, not PyPI.
+mlx = [
+    "mlx-lm>=0.19",
+]

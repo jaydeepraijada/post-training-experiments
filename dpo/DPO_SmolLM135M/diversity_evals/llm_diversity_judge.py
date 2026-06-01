@@ -13,8 +13,8 @@ Output keeps the same top-level record shape but adds:
   "avg_coherence": float
 
 Usage:
-    uv run preference_optimization/llm_diversity_judge.py \\
-        -i preference_optimization/evals/..._diversity.jsonl \\
+    uv run llm_diversity_judge.py \\
+        -i evals/..._diversity.jsonl \\
         --limit 20
 """
 from __future__ import annotations

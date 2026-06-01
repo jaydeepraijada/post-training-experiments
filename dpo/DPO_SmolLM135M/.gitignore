@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+
+# Data & outputs
+models/*
+*.jsonl
+*.csv
+data/
+
+# Allow eval results
+!evals/
+evals/*
+!evals/*.json
+!evals/*.jsonl
+!evals/images/
+
+# Runtime
+unsloth_compiled_cache/
+wandb/
+
+# Env
+.envrc
+.env

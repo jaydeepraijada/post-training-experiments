@@ -2,7 +2,7 @@
 Plot diversity vs correctness / coherence results.
 
 Usage:
-    uv run preference_optimization/plot_diversity_analysis.py
+    uv run plot_diversity_analysis.py
 """
 import json
 import matplotlib.pyplot as plt
@@ -11,7 +11,7 @@ from scipy.stats import pearsonr
 
 # Load data
 records = []
-with open("preference_optimization/evals/smollm_135M_neuraltxt_v1_diversity_n100_r4_final.jsonl") as f:
+with open("evals/smollm_135M_neuraltxt_v1_diversity_n100_r4_final.jsonl") as f:
     for line in f:
         records.append(json.loads(line))
 
@@ -51,7 +51,7 @@ for col, (label, vals) in enumerate(metrics):
     ax_bot.set_ylim(0.5, 5.5)
 
 fig.tight_layout(rect=[0, 0, 1, 0.95])
-out_png = "preference_optimization/evals/diversity_vs_quality.png"
+out_png = "evals/diversity_vs_quality.png"
 fig.savefig(out_png, dpi=200)
 print(f"Saved plot to {out_png}")
 
@@ -90,6 +90,6 @@ ax2.legend()
 ax2.axhline(3, color="gray", linestyle="--", alpha=0.3)
 
 fig2.tight_layout()
-out_png2 = "preference_optimization/evals/temperature_vs_quality.png"
+out_png2 = "evals/temperature_vs_quality.png"
 fig2.savefig(out_png2, dpi=200)
 print(f"Saved plot to {out_png2}")

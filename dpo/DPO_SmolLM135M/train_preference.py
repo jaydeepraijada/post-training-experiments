@@ -3,11 +3,11 @@ Preference tuning with Unsloth + TRL.
 Supports DPO and ORPO.
 
 Usage:
-    uv run python preference_optimization/train_preference.py \
+    uv run python train_preference.py \
         --method dpo \
         --output_model_id preference_tuned
 
-    uv run python preference_optimization/train_preference.py \
+    uv run python train_preference.py \
         --method orpo \
         --output_model_id preference_orpo
 """
@@ -15,21 +15,13 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import sys
-from pathlib import Path
 
 from unsloth import FastLanguageModel, PatchDPOTrainer, is_bfloat16_supported
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-
-try:
-    from preference_optimization.chat_formatting import normalize_explicit_preference_example
-    from preference_optimization.trl_compat import patch_trl_optional_dependency_checks
-except ModuleNotFoundError:
-    from chat_formatting import normalize_explicit_preference_example
-    from trl_compat import patch_trl_optional_dependency_checks
+# Run scripts from inside this experiment folder (dpo/DPO_SmolLM135M/), so
+# sibling modules import flatly.
+from chat_formatting import normalize_explicit_preference_example
+from trl_compat import patch_trl_optional_dependency_checks
 
 from datasets import load_dataset
 from transformers import EarlyStoppingCallback
@@ -150,10 +142,10 @@ def main() -> None:
                 fp16=not is_bfloat16_supported(),
                 bf16=is_bfloat16_supported(),
                 save_strategy="steps",
-                save_steps=50,
+                save_steps=500,
                 save_total_limit=3,
                 eval_strategy="steps",
-                eval_steps=50,
+                eval_steps=500,
                 load_best_model_at_end=True,
                 metric_for_best_model="eval_loss",
                 beta=args.beta,
@@ -190,10 +182,10 @@ def main() -> None:
                 fp16=not is_bfloat16_supported(),
                 bf16=is_bfloat16_supported(),
                 save_strategy="steps",
-                save_steps=50,
+                save_steps=500,
                 save_total_limit=3,
                 eval_strategy="steps",
-                eval_steps=50,
+                eval_steps=500,
                 load_best_model_at_end=True,
                 metric_for_best_model="eval_loss",
                 beta=args.beta,

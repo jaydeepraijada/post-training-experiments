@@ -1,7 +1,7 @@
 """Convert Alpaca-format JSONL to role/content message-list JSONL.
 
 Usage:
-    uv run python preference_optimization/convert_alpaca_to_chat.py
+    uv run python convert_alpaca_to_chat.py
 """
 
 from __future__ import annotations

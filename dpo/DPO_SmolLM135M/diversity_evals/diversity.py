@@ -10,7 +10,7 @@ Example JSONL input format (one line per prompt):
   {"id": 0, "question": "...", "responses": ["...", "...", "..."]}
 
 Usage:
-    uv run preference_optimization/diversity.py -i responses.jsonl -o scores.jsonl
+    uv run diversity.py -i responses.jsonl -o scores.jsonl
 """
 from __future__ import annotations
 

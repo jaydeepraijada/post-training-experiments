@@ -49,7 +49,7 @@ def parse_args() -> argparse.Namespace:
         "--input_file",
         "-i",
         type=str,
-        default="preference_optimization/evals/pref_dataset/train_4r_temp0.5.jsonl",
+        default="evals/pref_dataset/train_4r_temp0.5.jsonl",
     )
     p.add_argument(
         "--output_file",

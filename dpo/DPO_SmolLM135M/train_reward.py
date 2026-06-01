@@ -4,9 +4,9 @@ Reward model training with TRL + PEFT.
 Works on CUDA, Apple Silicon (MPS), and CPU. Auto-detects device.
 
 Usage:
-    uv run python preference_optimization/train_reward.py
+    uv run python train_reward.py
 
-    uv run python preference_optimization/train_reward.py \
+    uv run python train_reward.py \
         --base_model_id paperbd/smollm_135M_neuraltxt_v1 \
         --output_model_id reward_model_v1 \
         --epochs 3
@@ -15,22 +15,12 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import os
-import sys
-from pathlib import Path
 
 import torch
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-
-try:
-    from preference_optimization.chat_formatting import build_reward_conversations
-    from preference_optimization.trl_compat import patch_trl_optional_dependency_checks
-except ModuleNotFoundError:
-    from chat_formatting import build_reward_conversations
-    from trl_compat import patch_trl_optional_dependency_checks
+# Run from inside this experiment folder (dpo/DPO_SmolLM135M/) for flat imports.
+from chat_formatting import build_reward_conversations
+from trl_compat import patch_trl_optional_dependency_checks
 
 from datasets import load_dataset
 from peft import LoraConfig, TaskType
