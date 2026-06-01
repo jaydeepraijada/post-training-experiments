@@ -8,6 +8,11 @@ That is the whole point — one code path, many configs.
 """
 from __future__ import annotations
 
+import os
+# Reduce CUDA fragmentation on tight-VRAM GPUs (e.g. 14.5 GB T4). Must be set
+# before the CUDA context initialises, i.e. before importing torch/unsloth.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
 # Unsloth MUST be imported before transformers/trl so its patches apply.
 from unsloth import (
     FastLanguageModel,
@@ -19,7 +24,6 @@ from unsloth import (
 import argparse
 import csv
 import json
-import os
 import sys
 from datetime import datetime, timezone
 from typing import Any
