@@ -1,0 +1,7 @@
+[
+  {
+    "prompt": "Generate one question and its corresponding answer from this passage.  (passage: an ML paper on continual learning)",
+    "sft": "Q: What is a major challenge in continuously learning models?\nA: A major challenge in continually updating models on new data is catastrophic forgetting, where a model's performance on previously learned tasks drastically degrades.",
+    "dpo": "Q: What are the two primary sources of catastrophic forgetting in continual learning?\nA: 1) overfitting of the feature-extraction network on new tasks, and 2) bias towards new classes introduced by the linear classifier."
+  }
+]
