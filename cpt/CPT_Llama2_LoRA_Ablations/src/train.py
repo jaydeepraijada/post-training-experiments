@@ -83,6 +83,9 @@ def build_trainer(cfg: RunConfig, model, tokenizer, train_ds, val_ds, report_to,
         run_name=run_name,
         # We evaluate once at the very end (see evaluate_perplexity); no mid-run eval.
         eval_strategy="no",
+        # No checkpoints: the run's artifact is the runs.csv row, not adapter
+        # weights. Also avoids pickling unsloth's patched SFTConfig on save.
+        save_strategy="no",
         per_device_eval_batch_size=cfg.per_device_train_batch_size,
     )
 
