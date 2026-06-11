@@ -26,9 +26,11 @@ echo "=== Install stack ==="
 pip install -q "unsloth @ git+https://github.com/unslothai/unsloth.git"
 pip install -q --no-deps xformers trl peft accelerate bitsandbytes
 pip install -q pyyaml wandb
-# Newer stacks ship the Hub client as `hf`, but unsloth still imports the
-# legacy `huggingface_hub` module name — install it explicitly.
-pip install -q huggingface_hub
+# Be explicit about core deps the unsloth install has been observed NOT to
+# bring in on fresh pods: transformers/safetensors/datasets, and the Hub
+# client under its legacy `huggingface_hub` module name (newer stacks ship
+# it as `hf`, but unsloth still imports the old name).
+pip install -q huggingface_hub transformers datasets safetensors sentencepiece
 
 echo "=== Clone branch ==="
 WORKDIR="${WORKDIR:-/workspace}"
