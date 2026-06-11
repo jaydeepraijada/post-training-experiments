@@ -26,6 +26,9 @@ echo "=== Install stack ==="
 pip install -q "unsloth @ git+https://github.com/unslothai/unsloth.git"
 pip install -q --no-deps xformers trl peft accelerate bitsandbytes
 pip install -q pyyaml wandb
+# Newer stacks ship the Hub client as `hf`, but unsloth still imports the
+# legacy `huggingface_hub` module name — install it explicitly.
+pip install -q huggingface_hub
 
 echo "=== Clone branch ==="
 WORKDIR="${WORKDIR:-/workspace}"
