@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # One-paste runner for a fresh RunPod CUDA pod (PyTorch template, RTX 4090).
 #
-#   export GH_TOKEN=ghp_...        # GitHub token, repo scope — pushes results back
+#   export GH_TOKEN=ghp_...        # GitHub token (repo scope) — commits results to the branch
+#   export HF_TOKEN=hf_...         # alternative: upload results to an HF dataset repo
+#   export HF_RESULTS_REPO=...     # optional; default jaydeepraijada/cpt-lora-ablations-results
 #   export WANDB_API_KEY=...       # optional; omit to run CSV-only
 #   export SEEDS="0 1 2"           # optional; default below
 #   curl -sL https://raw.githubusercontent.com/jaydeepraijada/post-training-experiments/add-cpt-llama2-lora-ablations/cpt/CPT_Llama2_LoRA_Ablations/scripts/run_runpod.sh | bash
@@ -43,15 +45,27 @@ echo "=== Sweep: full ladder, seeds [$SEEDS] ==="
 SEEDS="$SEEDS" EXTRA_ARGS="$WANDB_ARGS" bash scripts/run_all.sh
 python scripts/make_table.py || true
 
-echo "=== Push results back to $BRANCH ==="
+echo "=== Persist results (pod disk is ephemeral) ==="
+PERSISTED=0
 if [ -n "${GH_TOKEN:-}" ]; then
   git config user.name  "Jaydeep"
   git config user.email "j.raijada25@gmail.com"
   git add results/
-  git commit -m "Add 4090 ablation results (runs.csv)" || echo "nothing to commit"
+  git commit -m "Add GPU ablation results (runs.csv)" || echo "nothing to commit"
   git push "https://jaydeepraijada:${GH_TOKEN}@github.com/${REPO}.git" "HEAD:${BRANCH}"
-else
-  echo "GH_TOKEN not set — results NOT pushed. Copy results/runs.csv off the pod manually."
+  PERSISTED=1
+fi
+if [ -n "${HF_TOKEN:-}" ]; then
+  HF_RESULTS_REPO="${HF_RESULTS_REPO:-jaydeepraijada/cpt-lora-ablations-results}"
+  pip install -q -U huggingface_hub   # ensures the `hf` CLI entrypoint exists
+  hf repos create "$HF_RESULTS_REPO" --type dataset --private --exist-ok
+  hf upload "$HF_RESULTS_REPO" results . --type dataset \
+    --exclude "*.gitkeep" --commit-message "GPU ablation results (runs.csv)"
+  PERSISTED=1
+fi
+if [ "$PERSISTED" = "0" ]; then
+  echo "WARNING: no GH_TOKEN or HF_TOKEN — results NOT persisted."
+  echo "Copy results/runs.csv off the pod before it stops."
 fi
 
 echo "=== Done ==="
