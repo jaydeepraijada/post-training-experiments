@@ -12,15 +12,17 @@ CONFIGS=(
   configs/03_embed_lmhead.yaml
   configs/04_rslora.yaml
   configs/05_decoupled_lr.yaml
+  configs/06b_rslora_at_05_lrs.yaml
   configs/06_rslora_decoupled.yaml
 )
 
 SEEDS="${SEEDS:-3407}"
+EXTRA_ARGS="${EXTRA_ARGS:-}"   # e.g. EXTRA_ARGS="--no-wandb" or "--max-steps 500"
 
 for cfg in "${CONFIGS[@]}"; do
   for seed in $SEEDS; do
     echo ">>> $cfg (seed $seed)"
-    python src/train.py --config "$cfg" --seed "$seed"
+    python src/train.py --config "$cfg" --seed "$seed" $EXTRA_ARGS
   done
 done
 

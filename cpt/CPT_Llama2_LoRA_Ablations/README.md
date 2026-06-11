@@ -34,6 +34,14 @@ notebooks/      the original Colab notebooks this study grew out of (see Appendi
 
 **Free T4 (Colab):** open `notebooks/run_colab_T4.ipynb`, set the runtime to T4 GPU, and run the cells (installs the stack, clones the repo, runs the sweep, logs to W&B).
 
+**RunPod (RTX 4090, recommended):** launch a pod with the official PyTorch template, open its web terminal, and paste:
+```bash
+export GH_TOKEN=ghp_...        # GitHub token (repo scope) — pushes results back to the branch
+export WANDB_API_KEY=...       # optional
+curl -sL https://raw.githubusercontent.com/jaydeepraijada/post-training-experiments/add-cpt-llama2-lora-ablations/cpt/CPT_Llama2_LoRA_Ablations/scripts/run_runpod.sh | bash
+```
+This smoke-tests first (10 steps), then runs the full 7-config × 3-seed ladder, commits `results/runs.csv` back to the branch, and stops the pod when done (`AUTO_STOP=0` to keep it alive). ~11 h / ~$5 at $0.40–0.50/h.
+
 **Any CUDA GPU (local / cloud):**
 ```bash
 pip install -r requirements.txt
@@ -68,7 +76,8 @@ Needs a CUDA GPU (4-bit Llama‑2‑7B at seq-len 4096 peaks ~14 GB). Each run r
 | `03_embed_lmhead` | + `embed_tokens` + `lm_head`, **same LR** (deliberately naive) | all linear | off | 5e‑4 / — |
 | `04_rslora` | turn on rsLoRA | all linear | **on** | 5e‑4 / — |
 | `05_decoupled_lr` | decoupled embedding LR (no rsLoRA) | all linear | off | 5e‑4 / **5e‑5** |
-| `06_rslora_decoupled` | full Unsloth recipe | all linear | **on** | 1e‑4 / **2.5e‑5** |
+| `06b_rslora_at_05_lrs` | + rsLoRA, LRs unchanged vs 05 | all linear | **on** | 5e‑4 / **5e‑5** |
+| `06_rslora_decoupled` | full Unsloth recipe (lower LR pair) | all linear | **on** | 1e‑4 / **2.5e‑5** |
 
 ---
 

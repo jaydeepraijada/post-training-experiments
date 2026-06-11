@@ -1,0 +1,18 @@
+extends: base.yaml
+name: 06b_rslora_at_05_lrs
+# vs 05: turn rsLoRA ON, keep 05's LRs unchanged. Isolates rsLoRA's effect on top
+# of the decoupled LR. 06 then differs from this rung ONLY by the lowered LR pair
+# (1e-4 / 2.5e-5), so the 05 -> 06b -> 06 chain stays one knob per step.
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+  - embed_tokens
+  - lm_head
+use_rslora: true
+learning_rate: 5.0e-4
+embedding_learning_rate: 5.0e-5
