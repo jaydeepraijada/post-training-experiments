@@ -3,7 +3,7 @@
 #
 #   export GH_TOKEN=ghp_...        # GitHub token (repo scope) — commits results to the branch
 #   export HF_TOKEN=hf_...         # alternative: upload results to an HF dataset repo
-#   export HF_RESULTS_REPO=...     # optional; default jaydeepraijada/cpt-lora-ablations-results
+#   export HF_RESULTS_REPO=...     # optional; default JaydeepR/cpt-lora-ablations-results
 #   export WANDB_API_KEY=...       # optional; omit to run CSV-only
 #   export SEEDS="0 1 2"           # optional; default below
 #   curl -sL https://raw.githubusercontent.com/jaydeepraijada/post-training-experiments/add-cpt-llama2-lora-ablations/cpt/CPT_Llama2_LoRA_Ablations/scripts/run_runpod.sh | bash
@@ -62,7 +62,8 @@ if [ -n "${GH_TOKEN:-}" ]; then
   PERSISTED=1
 fi
 if [ -n "${HF_TOKEN:-}" ]; then
-  HF_RESULTS_REPO="${HF_RESULTS_REPO:-jaydeepraijada/cpt-lora-ablations-results}"
+  # NB: HF namespace (JaydeepR) differs from the GitHub handle (jaydeepraijada).
+  HF_RESULTS_REPO="${HF_RESULTS_REPO:-JaydeepR/cpt-lora-ablations-results}"
   pip install -q -U huggingface_hub   # ensures the `hf` CLI entrypoint exists
   hf repos create "$HF_RESULTS_REPO" --type dataset --private --exist-ok
   hf upload "$HF_RESULTS_REPO" results . --type dataset \
