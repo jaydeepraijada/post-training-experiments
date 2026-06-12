@@ -83,27 +83,29 @@ Needs a CUDA GPU (4-bit Llama‑2‑7B at seq-len 4096 peaks ~14 GB). Each run r
 
 ## Results
 
-Populate this from your own runs: `python scripts/make_table.py`. The numbers below are the **training-loss readings from the original exploratory notebooks** (Appendix) — kept as a directional preview until the perplexity sweep is re-run through the harness.
+**Measured 2026-06-12** on a rented RTX 4090: full ladder × 3 data seeds × 50 steps (13.1M tokens/run), graded on held-out perplexity over a 1,000-example split. Raw rows in `results/runs.csv`; regenerate with `python scripts/make_table.py`. (A 10-step smoke-test row for `01_baseline` is in the CSV but excluded from all stats.)
 
-| Experiment | Trainable | Train loss @50 (notebook) |
-|---|---|---|
-| 01_baseline | 515.9 M | 1.0678 |
-| 02_gate_proj | 639.6 M | 1.0630 |
-| 03_embed_lmhead (same LR) | 901.8 M | **1.1102** ⚠️ worse than baseline |
-| 04_rslora | 901.8 M | 1.0663 |
-| 05_decoupled_lr | 901.8 M | 1.0626 |
-| 06_rslora_decoupled | 901.8 M | **1.0541** ✅ best |
+| Experiment | Trainable | Val perplexity (mean ± std) | Verdict |
+|---|---|---|---|
+| 01_baseline | 515.9 M | 3.0070 ± 0.0205 | reference |
+| 02_gate_proj | 639.6 M | 2.9887 ± 0.0211 | small win, all 3 seeds |
+| 03_embed_lmhead (same LR) | 779.9 M | 2.9850 ± 0.0198 | **did NOT backfire** — beats baseline at every seed |
+| 04_rslora | 779.9 M | 3.1779 ± 0.3220 | ⚠️ unstable: worse at every seed, 16× the variance |
+| 05_decoupled_lr | 779.9 M | 2.9810 ± 0.0095 | solid, tight |
+| 06b_rslora_at_05_lrs | 779.9 M | 3.3543 ± 0.5836 | ⚠️ worst row — rsLoRA instability at 5e-4 |
+| 06_rslora_decoupled | 779.9 M | **2.9627 ± 0.0077** | ✅ best AND tightest |
 
-### What the numbers say
+### What the numbers say (vs. what the notebooks said)
 
-1. **`gate_proj` helps (01→02).** Training the SwiGLU gate, omitted by the original paper, lowers loss for little extra cost.
-2. **Adapting embeddings at the normal LR backfires (03).** Adding `embed_tokens` + `lm_head` at 5e‑4 is *worse than the baseline* — these layers are large and sensitive; a full-speed LR destabilizes them.
-3. **rsLoRA stabilizes high rank (04).** `alpha/√r` scaling (vs. `alpha/r`) is the recommended setup at `r=256` and recovers the regression.
-4. **Decoupled embedding LR is the real fix (05→06).** Giving `embed_tokens`/`lm_head` a ~10× smaller LR via `UnslothTrainer` lets you adapt them safely; combined with rsLoRA it gives the best result.
+1. **`gate_proj` helps a little (01→02, −0.018 ppl).** Wins the seed-matched comparison 3/3, but the effect is ~1σ — directionally as claimed, weakly.
+2. **Naive embedding adaptation did NOT backfire (03).** It beats the baseline at every seed. The notebooks' "key failure mode" — the motivation for the whole recipe — does not replicate on held-out perplexity with the current stack.
+3. **rsLoRA at the standard LR is the actual failure mode (04, 06b).** Worse than its non-rsLoRA twin at virtually every seed, with 16–60× the variance, and chronic loss spikes during training (see W&B). Mechanism: at `r=256, alpha=32`, rsLoRA scales adapters by 2.0 vs plain LoRA's 0.125 — a 16× stronger contribution fed the same 5e-4 Lion steps.
+4. **The full recipe wins, but the rescue is the learning rate (06b→06).** 06 differs from 06b *only* by the lowered LR pair (1e-4 / 2.5e-5) and goes from worst row to best row. Unsloth's LR choice is load-bearing compensation for rsLoRA, not an independent nicety.
+5. **Effect sizes are small.** Best vs baseline is −0.044 ppl (~1.5%); the largest effect in the table is rsLoRA *hurting* (+0.39). At this budget, avoiding the instability matters more than any single ingredient helping.
 
-**Takeaway:** adapting embeddings for CPT is worth it, but only with (a) a smaller, decoupled LR and (b) rsLoRA scaling. Either piece done wrong is worse than not touching embeddings at all.
+**Takeaway:** the recipe's net win is real but modest, and entirely contingent on the LR compensation; the dramatic notebook-era claims ("embeddings backfire", "rsLoRA fixes it") did not replicate when measured on unseen data with seeds.
 
-> **Methodology note:** training loss is a proxy, not an outcome — a model can lower it while getting worse on unseen text. The harness therefore reports **held-out perplexity** instead. Also note the original notebooks changed two knobs at step 03→04 (rsLoRA *and* the LR); the configs here split that into `04` (rsLoRA only) and `05` (decoupled LR only) so each effect is isolated. For publishable numbers, run ≥3 seeds and report mean ± std.
+> **Methodology notes:** (a) The notebooks measured final *training* loss on one seed with a 2024 stack at seq-len 4096; this sweep measures held-out perplexity on 3 seeds with a 2026 stack at seq-len 2048 — treat cross-era comparisons as directional only. (b) Configs with a decoupled embedding LR (05/06b/06) run via `UnslothTrainer`, the rest via `SFTTrainer`; visible side effects: lower VRAM (11.4 vs ~15 GB) and ~40% longer runtime. (c) Current unsloth implements `embed_tokens`/`lm_head` adaptation differently than the 2024 notebooks (779.9M trainable vs the notebooks' 901.8M — the arithmetic matches full-training `embed_tokens` + LoRA on `lm_head`).
 
 ---
 

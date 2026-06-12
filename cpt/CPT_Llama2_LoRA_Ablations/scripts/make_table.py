@@ -17,15 +17,18 @@ def main():
     if not os.path.exists(CSV):
         raise SystemExit(f"No results yet at {CSV}. Run the sweep first.")
 
-    by_name: dict[str, list[dict]] = defaultdict(list)
+    # Group by (name, steps) so runs at different budgets — e.g. the 10-step
+    # smoke test vs the 50-step sweep — get separate rows instead of polluting
+    # each other's mean ± std.
+    by_key: dict[tuple[str, int], list[dict]] = defaultdict(list)
     with open(CSV, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
-            by_name[row["name"]].append(row)
+            by_key[(row["name"], int(row["steps"]))].append(row)
 
-    print("| Experiment | Trainable | Val perplexity | Eval loss | Peak VRAM | Seeds |")
-    print("|---|---|---|---|---|---|")
-    for name in sorted(by_name):
-        rows = by_name[name]
+    print("| Experiment | Steps | Trainable | Val perplexity | Eval loss | Peak VRAM | Seeds |")
+    print("|---|---|---|---|---|---|---|")
+    for name, steps in sorted(by_key):
+        rows = by_key[(name, steps)]
         ppls = [float(r["eval_perplexity"]) for r in rows]
         losses = [float(r["eval_loss"]) for r in rows]
         params = int(rows[0]["trainable_params"])
@@ -36,7 +39,7 @@ def main():
         else:
             ppl_str = f"{ppls[0]:.4f}"
             loss_str = f"{losses[0]:.4f}"
-        print(f"| {name} | {params/1e6:.1f}M | {ppl_str} | {loss_str} | {vram:.2f} GB | {len(rows)} |")
+        print(f"| {name} | {steps} | {params/1e6:.1f}M | {ppl_str} | {loss_str} | {vram:.2f} GB | {len(rows)} |")
 
 
 if __name__ == "__main__":

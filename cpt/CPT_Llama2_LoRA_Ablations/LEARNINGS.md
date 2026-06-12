@@ -3,25 +3,34 @@
 Domain: code (`Magicoder-Evol-Instruct-110K`). Base: `unsloth/llama-2-7b-bnb-4bit`, LoRA `r=256`.
 Goal: isolate *which* of Unsloth's CPT recommendations actually move held-out perplexity, one knob at a time.
 
-> Status: harness built; the held-out-perplexity sweep is pending a GPU run. The findings
-> below are directional, read off **training loss** from the original exploratory notebooks
-> (`notebooks/`). They will be replaced with validation-perplexity numbers (mean ± std over
-> seeds) once the sweep runs — see the experiment `README.md` for the run commands.
+> Status: **measured** (2026-06-12, rented RTX 4090, ladder × 3 data seeds × 50 steps,
+> held-out perplexity over a seeded 1k split). The notebook-era directional findings are
+> superseded; two of them did not survive measurement. Numbers in `results/runs.csv`
+> and the README results table.
 
-1. **Training `gate_proj` helps for free-ish.** The original paper recipe omitted the SwiGLU
-   gate; adding it lowered loss with no instability. Cheap win.
+1. **Training `gate_proj` helps, weakly.** −0.018 ppl vs baseline, winning at all 3 seeds,
+   but only ~1σ. Cheap, safe, undramatic.
 
-2. **Adapting `embed_tokens` + `lm_head` at the *normal* LR backfires.** At a single 5e-4 LR
-   this was *worse than the baseline* — the embedding/head matrices are large and sensitive,
-   and a full-speed LR destabilises them. This is the key failure mode the rest of the recipe fixes.
+2. **Naive embedding adaptation did NOT backfire** (contradicts the notebooks). `03` at a
+   single 5e-4 LR *beat the baseline at every seed* (2.985 ± 0.020 vs 3.007 ± 0.021). The
+   "key failure mode" that motivates the recipe does not replicate on held-out perplexity
+   with the 2026 stack.
 
-3. **rsLoRA stabilises high rank.** `alpha/√r` scaling (vs `alpha/r`) is the right setup at
-   `r=256` and recovered the regression from (2).
+3. **rsLoRA at the standard LR is the real failure mode** (contradicts the notebooks).
+   `04` and `06b` show chronic loss spikes, worse perplexity at virtually every seed, and
+   16–60× the variance of their non-rsLoRA twins. Mechanism: at `r=256, alpha=32`, rsLoRA
+   scales adapter output by α/√r = 2.0 vs plain α/r = 0.125 — a 16× stronger contribution
+   fed to the same Lion 5e-4 steps.
 
-4. **Decoupled embedding LR is the actual fix.** Giving `embed_tokens`/`lm_head` a ~10× smaller
-   LR via `UnslothTrainer` lets you adapt them safely; combined with rsLoRA it gave the best loss
-   of the sweep. Takeaway: adapt embeddings for CPT **only** with (a) a smaller decoupled LR and
-   (b) rsLoRA — either alone done wrong is worse than not touching them.
+4. **The recipe's rescue is the learning rate, not rsLoRA.** `06b → 06` changes only the
+   LR pair (5e-4/5e-5 → 1e-4/2.5e-5) and moves from the worst row (3.354 ± 0.584) to the
+   best (2.963 ± 0.008). Unsloth's lower LR is load-bearing compensation for rsLoRA's
+   scale-up. Practical rule: if you turn on rsLoRA at high rank, drop the LR ~5×, or skip
+   rsLoRA and keep it simple (05 is within 0.02 ppl of the full recipe).
+
+5. **Effect sizes are small at this budget.** Best vs baseline: −0.044 ppl (~1.5%). The
+   biggest lever in the table is avoiding rsLoRA instability (+0.39), not any ingredient
+   helping. Echoes the SmolLM finding: data/budget dominate knob-tuning.
 
 ## Methodology notes (carried into the harness)
 
