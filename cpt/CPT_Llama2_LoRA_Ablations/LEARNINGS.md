@@ -33,6 +33,19 @@ Goal: isolate *which* of Unsloth's CPT recommendations actually move held-out pe
 - **Variance matters at this scale.** The effects are small (~0.01 loss); claims need ≥3 seeds
   with mean ± std, not a single run.
 
+## Config-audit notes (verified by diffing all rungs through the loader)
+
+- The ladder is a chain except one **fork**: 04 (rsLoRA) and 05 (decoupled LR) are parallel
+  arms off 03, each isolating one fix. Compare 04→03 and 05→03, not 05→04.
+  The chain resumes 05 → 06b (adds rsLoRA only) → 06 (lowers the LR pair only).
+- `--seed` varies the data split + shuffle order; LoRA init (`random_state: 3407`) is fixed.
+  Report the spread as **data-seed variance**, not full reinit variance.
+- The 1k val split is cut with the run seed, so each seed is a different "exam" — identical
+  across configs at the same seed (cross-config comparisons clean), but the ± std mixes
+  training noise with exam difficulty. Conservative, not biased.
+- Mislabel tripwire: `trainable_params` must read 515.9M (01), ~639.6M (02), ~901.8M (03–06);
+  it is computed from the live model, so it cross-checks the YAML independently.
+
 ## Next
 
 - Run the sweep on GPU (T4 smoke test → A100 for 500-step, 3-seed numbers); regenerate the
