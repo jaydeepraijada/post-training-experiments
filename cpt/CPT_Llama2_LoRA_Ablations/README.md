@@ -113,11 +113,11 @@ Needs a CUDA GPU (4-bit Llama‑2‑7B at seq-len 4096 peaks ~14 GB). Each run r
 
 Unsloth's CPT guide makes four claims about [Biderman et al.](https://arxiv.org/abs/2405.09673)'s LoRA setup. Each maps to a rung of the ladder:
 
-| # | Blog claim | Tested by | Status |
+| # | Blog claim | Tested by | Verdict (2026-06-12 sweep) |
 |---|---|---|---|
-| 1 | The paper never trained `gate_proj` (p.3 footnote) — train it | `01 → 02` | factual; effect size TBD |
-| 2 | Code underperformed *because* `embed_tokens`/`lm_head` weren't trained | `03`, `05` (ppl); needs HumanEval for the full causal claim | untested by Unsloth; our headline question |
-| 3 | At r=256 you must use rsLoRA (α/√r not α/r) | `04`, `06b` vs `06` | early evidence: rsLoRA at 5e-4 is *unstable*; the recipe's lower LR may be load-bearing compensation |
+| 1 | The paper never trained `gate_proj` (p.3 footnote) — train it | `01 → 02` | **weakly confirmed**: −0.018 ppl, 3/3 seeds, ~1σ |
+| 2 | Code underperformed *because* `embed_tokens`/`lm_head` weren't trained | `03`, `05` (ppl); needs HumanEval for the full causal claim | **partially contradicted**: embeddings help slightly on ppl, but the claimed failure mode (naive = harmful) did not replicate; causal code-gap claim still untested |
+| 3 | At r=256 you must use rsLoRA (α/√r not α/r) | `04`, `06b` vs `06` | **contradicted as stated**: rsLoRA at 5e-4 is the *failure mode* (worse ppl, 16–60× variance); it only works after the recipe's ~5× LR reduction (06b→06) |
 | 4 | LoftQ/PiSSA/LoRA+/DoRA as advanced options | excluded (blog itself hedges); DoRA parked as RESEARCH.md B8 | out of scope |
 
 Note the scaling arithmetic behind claim 3: with `alpha=32, r=256`, plain LoRA scales adapter output by 32/256 ≈ 0.125 while rsLoRA uses 32/√256 = 2.0 — a **16× stronger adapter contribution** at the same learning rate.

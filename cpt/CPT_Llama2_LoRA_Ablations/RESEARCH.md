@@ -1,7 +1,37 @@
 # Research Plan — CPT + LoRA: What Actually Matters
 
-> **Status:** proposal for review. Nothing here is committed as scope yet.
+> **Status:** Phase 1 spine **measured** (2026-06-12, RTX 4090, ~$7) — see §0 for results
+> and the re-prioritized roadmap. Sections 1–10 below are the original proposal, kept intact.
 > **Purpose:** turn the Unsloth-recipe reproduction into a study with a real finding.
+
+---
+
+## 0. Status update — Phase 1 results & new directions (2026-06-12)
+
+**Done:** 7-config ladder × 3 data seeds × 50 steps, held-out perplexity (A3 + A4 from the
+plan). Full numbers in `results/runs.csv` and the README results table.
+
+**What we found (summary):**
+1. The full recipe (06) wins: 2.963 ± 0.008 vs baseline 3.007 ± 0.021 — real but small (−1.5%).
+2. **Naive embedding adaptation did NOT backfire** (03 beats baseline at every seed) —
+   the notebook-era motivation for the recipe does not replicate.
+3. **rsLoRA at the standard LR is the actual failure mode** (04, 06b: chronic loss spikes,
+   worse ppl, 16–60× variance). The 06b→06 comparison shows the recipe's lowered LR pair is
+   load-bearing compensation for rsLoRA's α/√r scale-up (16× at r=256, α=32).
+
+**The headline moved.** The plan below anchored on B1 (embedding-LR mechanism) because we
+expected "embeddings backfire." They didn't. The strongest finding is the rsLoRA–LR
+interaction, so the revised priority order is:
+
+| Priority | What | Cost | Why now |
+|---|---|---|---|
+| P1 (free) | Write up Phase 1: perplexity bars + the W&B loss-spike figure | $0 | findings are committed; figure makes it publishable |
+| P2 | **rsLoRA × LR grid** ({on, off} × {5e-4, 2.5e-4, 1e-4, 5e-5}, 3 seeds on the deciders) | ~$3–4 | quantifies the LR compensation rsLoRA needs at r=256 — the curve nobody published; subsumes B9, reuses 4 existing runs |
+| P3 | Eval harness: HumanEval/MBPP pass@1 + forgetting slice (A1, A2) over saved adapters | build time + ~$2 | tests blog claim 2 causally; converts "ppl moved" into "it matters"; needs a `--save-final` flag in train.py |
+| P4 | B3 embedding-LR ratio curve | ~$3 | folklore→curve; complements P2 |
+| P5 | B2 shift axis (second, high-shift domain) | ~$10+ | most expensive; benefits from P3 harness existing first |
+
+**Budget note:** ~$2–3 remains of the original $10 RunPod credit; P2 fits it. P3+ needs a top-up.
 
 ---
 

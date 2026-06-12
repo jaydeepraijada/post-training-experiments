@@ -134,3 +134,36 @@ Each run: 50 steps ≈ 13M tokens ≈ 25 minutes on an RTX 4090.
 Full study: 7 experiments × 3 seeds = 21 runs ≈ 10 hours ≈ $7 of GPU rental.
 The results land in `results/runs.csv`, on Weights & Biases, and on the
 Hugging Face Hub.
+
+---
+
+## The results (measured 2026-06-12)
+
+The sweep ran. Answering the five questions from "How to read the results":
+
+1. **Is 02 better than 01?** Yes, slightly — training the gate layer won at
+   all 3 seeds, but the margin is about the same size as the noise. A cheap,
+   undramatic win.
+2. **Did 03 backfire?** **No — and this is the first surprise.** The
+   "deliberately naive" embedding experiment *beat the baseline at every
+   seed*. The failure story that motivates the whole recipe didn't happen.
+3. **Which fix repairs more?** Trick question, it turned out: there was
+   nothing to repair (see 2), and one of the "fixes" was the thing that
+   broke. The gentler-learning-rate arm (05) was solid and stable. The
+   rsLoRA arm (04) went haywire — training loss spiking to 8× normal,
+   results swinging wildly between seeds, worse on the final exam.
+4. **Do the fixes stack (06b)?** No — combining them gave the *worst*
+   result of the whole study, because rsLoRA's instability dominates at
+   the standard learning rate.
+5. **Does Unsloth's final learning-rate choice matter (06 vs 06b)?**
+   **It's everything.** Lowering the learning rate ~5× took the same setup
+   from worst place to first place (best score, smallest noise). That's
+   the study's headline: the recipe works, but its quiet ingredient — the
+   lowered learning rate — is doing the rescuing, and the celebrated
+   ingredient (rsLoRA) is what it's rescuing things *from*.
+
+**Bottom line:** the full recipe beat the plain baseline by about 1.5% —
+real, consistent across seeds, but modest. The big lesson is a warning,
+not a recipe: at high adapter rank, turning on rsLoRA without lowering
+the learning rate makes things much worse, not better. Numbers in
+`results/runs.csv`; next steps in `RESEARCH.md` §0.

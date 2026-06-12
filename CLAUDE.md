@@ -7,8 +7,21 @@ Experiments in post-training small LLMs. Each subfolder is a self-contained expe
 ```
 post-training-experiments/
 └── cpt/
-    └── CPT_SmolLM135M/   — continued pre-training on SmolLM-135M
+    ├── CPT_SmolLM135M/            — continued pre-training on SmolLM-135M
+    └── CPT_Llama2_LoRA_Ablations/ — controlled ablation of Unsloth's LoRA-CPT recipe on Llama-2-7B
 ```
+
+## CPT_Llama2_LoRA_Ablations
+
+Controlled 7-config ablation of Unsloth's CPT recipe (gate_proj, embeddings, rsLoRA, decoupled
+embedding LR) on Llama-2-7B + Magicoder code data; one YAML per knob, shared `src/train.py`.
+**Phase 1 measured (2026-06-12):** full recipe best by ~1.5% held-out ppl, but rsLoRA at the
+standard LR is the real failure mode and the recipe's lowered LR is what rescues it; the
+notebook-era "naive embeddings backfire" claim did not replicate. Docs: `README.md` (results),
+`LEARNINGS.md` (findings + ops), `RESEARCH.md` §0 (re-prioritized next directions),
+`EXPERIMENTS_EXPLAINED.md` (plain-language). Runs on RunPod via `scripts/run_runpod.sh`;
+results in `results/runs.csv`, W&B project `cpt-lora-ablations`, HF dataset
+`JaydeepR/cpt-lora-ablations-results` (HF username is JaydeepR, not the GitHub handle).
 
 ## CPT_SmolLM135M
 

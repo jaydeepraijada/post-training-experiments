@@ -55,9 +55,21 @@ Goal: isolate *which* of Unsloth's CPT recommendations actually move held-out pe
 - Mislabel tripwire: `trainable_params` must read 515.9M (01), ~639.6M (02), ~901.8M (03–06);
   it is computed from the live model, so it cross-checks the YAML independently.
 
-## Next
+## Next (re-prioritized after the sweep — details in RESEARCH.md §0)
 
-- Run the sweep on GPU (T4 smoke test → A100 for 500-step, 3-seed numbers); regenerate the
-  results table via `scripts/make_table.py`.
-- Optional: add a downstream code benchmark (HumanEval/MBPP pass@1) — a real task metric on top
-  of perplexity, since the domain is code.
+1. Write up Phase 1 (perplexity bars + the W&B loss-spike figure).
+2. rsLoRA × LR grid (~$3–4): quantify how much LR compensation rsLoRA needs at r=256.
+3. HumanEval/MBPP + forgetting harness over saved adapters (needs `--save-final` in train.py);
+   tests the blog's causal claim about embeddings and code performance.
+4. Embedding-LR ratio curve (B3), then the high-shift second domain (B2).
+
+## Ops learnings (RunPod, 2026-06-12 sweep)
+
+- Fresh-pod installs are the failure zone: `unsloth @ git+` did not bring its dep tree
+  (huggingface_hub now ships as `hf`, unsloth_zoo/transformers/safetensors missing).
+  A clean `pip install --force-reinstall unsloth unsloth_zoo` resolved everything in one pass.
+- Checkpoint saving crashes under unsloth's patched `SFTConfig` (pickling error) — the harness
+  sets `save_strategy="no"`; runs produce measurements, not weights, by design.
+- The 10-step smoke test caught every one of these for cents; never skip it.
+- Sweep economics: 21 runs ≈ 9.6 h ≈ $7 at $0.69/h (4090). UnslothTrainer runs used less VRAM
+  (11.4 vs ~15 GB) but ~40% more time than SFTTrainer runs.
