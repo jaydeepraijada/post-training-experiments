@@ -107,6 +107,19 @@ Populate this from your own runs: `python scripts/make_table.py`. The numbers be
 
 ---
 
+## The blog claims under test
+
+Unsloth's CPT guide makes four claims about [Biderman et al.](https://arxiv.org/abs/2405.09673)'s LoRA setup. Each maps to a rung of the ladder:
+
+| # | Blog claim | Tested by | Status |
+|---|---|---|---|
+| 1 | The paper never trained `gate_proj` (p.3 footnote) — train it | `01 → 02` | factual; effect size TBD |
+| 2 | Code underperformed *because* `embed_tokens`/`lm_head` weren't trained | `03`, `05` (ppl); needs HumanEval for the full causal claim | untested by Unsloth; our headline question |
+| 3 | At r=256 you must use rsLoRA (α/√r not α/r) | `04`, `06b` vs `06` | early evidence: rsLoRA at 5e-4 is *unstable*; the recipe's lower LR may be load-bearing compensation |
+| 4 | LoftQ/PiSSA/LoRA+/DoRA as advanced options | excluded (blog itself hedges); DoRA parked as RESEARCH.md B8 | out of scope |
+
+Note the scaling arithmetic behind claim 3: with `alpha=32, r=256`, plain LoRA scales adapter output by 32/256 ≈ 0.125 while rsLoRA uses 32/√256 = 2.0 — a **16× stronger adapter contribution** at the same learning rate.
+
 ## The Unsloth ingredients in one line each
 
 - **`gate_proj` / all linear layers** — more adapter capacity for domain shift.
