@@ -1,0 +1,30 @@
+# Backward-compatible medium paper training configuration.
+model:
+  name: "paperbd/neuraltxt-v1-135M-reasoning-base-v2"
+  from_sft: false
+  max_new_tokens: 512
+
+training:
+  rollout_batch_size: 8
+  n_rollouts: 6
+  temperature: 0.7
+  batch_size: 16
+  gradient_accumulation_steps: 12
+  learning_rate: 0.000001
+  num_epochs: 5
+  log_every: 1
+  top_p: 0.95
+  num_repeats: 2
+  buffer_size: 300
+
+data:
+  dataset: "paperbd/paper_instructions_300K-v1"
+  train_split: "train"
+  test_split: "test"
+  train_data_size: 1500
+  eval_data_size: 512
+  test_batch_size: 12
+
+loss:
+  kld_weight: 0.02
+  entropy_weight: 0.01

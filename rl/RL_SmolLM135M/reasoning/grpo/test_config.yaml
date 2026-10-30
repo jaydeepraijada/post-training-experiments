@@ -1,0 +1,30 @@
+# Training Configuration
+model:
+  name: "models/16/llm_sft"
+  from_sft: true
+  max_new_tokens: 70
+
+training:
+  rollout_batch_size: 8
+  n_rollouts: 4
+  temperature: 0.7
+  batch_size: 6
+  gradient_accumulation_steps: 4
+  learning_rate: 0.00001
+  num_epochs: 3
+  log_every: 1
+  top_p: 0.95
+  num_repeats: 2
+  buffer_size: 16
+
+data:
+  dataset: "paperbd/paper_instructions_300K-v1"
+  train_split: "train"
+  test_split: "test"
+  train_data_size: 10000
+  eval_data_size: 5
+  test_batch_size: 5
+
+loss:
+  kld_weight: 0
+  entropy_weight: 0 

@@ -1,0 +1,31 @@
+# Local laptop run: low-stress settings for validating trends without saturating
+# memory or spending too much time in eval.
+model:
+  name: "paperbd/neuraltxt-v1-135M-reasoning-base-v2"
+  from_sft: false
+  max_new_tokens: 768
+
+training:
+  rollout_batch_size: 2
+  n_rollouts: 4
+  temperature: 0.8
+  batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 0.000002
+  num_epochs: 2
+  log_every: 2
+  top_p: 0.95
+  num_repeats: 2
+  buffer_size: 512
+
+data:
+  dataset: "paperbd/paper_instructions_300K-v1"
+  train_split: "train"
+  test_split: "test"
+  train_data_size: 256
+  eval_data_size: 64
+  test_batch_size: 16
+
+loss:
+  kld_weight: 0.02
+  entropy_weight: 0.005

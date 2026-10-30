@@ -1,0 +1,48 @@
+[project]
+name = "rl-smollm135m"
+version = "0.1.0"
+description = "Reinforcement learning (GRPO with a learned reward) on SmolLM-135M"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "accelerate>=1.0",
+    "datasets>=3.6",
+    "markdown-it-py>=3.0",
+    "matplotlib>=3.9",
+    "neural-txt[hf]>=0.1.6",
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "peft>=0.18.1",
+    "pyyaml>=6.0",
+    "rich>=14.3.2",
+    "scipy>=1.13",
+    "torch>=2.7",
+    "tqdm>=4.66",
+    "transformers>=4.57.6,<5",
+]
+
+[project.optional-dependencies]
+# Only needed to regenerate the base model / reasoning data, not to run GRPO.
+warmup = [
+    "trl>=0.24.0",
+    "unsloth>=2026.1.4",
+]
+dataprep = [
+    "openai>=1.0",
+    "python-dotenv>=1.0",
+    "scikit-learn>=1.5",
+    "text-albumentations==2.1.0",
+]
+mlx = [
+    "mlx>=0.31.2; sys_platform == 'darwin'",
+    "mlx-lm>=0.29.1; sys_platform == 'darwin'",
+]
+
+# cu130 is the build that works on the DGX Spark (linux/aarch64, CUDA 13).
+[tool.uv.sources]
+torch = { index = "pytorch-cu130", marker = "sys_platform == 'linux'" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
