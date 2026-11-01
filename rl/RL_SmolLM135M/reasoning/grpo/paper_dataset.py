@@ -26,6 +26,7 @@ class PaperInstructionDataset(Dataset):
         tokenizer=None,
         data_size=None,
         seed=SEED,
+        max_prompt_tokens=None,
     ):
         self.data = _load_dataset(dataset_name_or_path, split)
         if seed is not None:
@@ -33,6 +34,33 @@ class PaperInstructionDataset(Dataset):
         if data_size is not None:
             self.data = self.data.select(range(min(data_size, len(self.data))))
         self.tokenizer = tokenizer
+        if max_prompt_tokens is not None:
+            # A few rows hold whole papers (46K+ tokens): one needs 129 GiB for its
+            # attention mask alone during generation.
+            total = len(self.data)
+            self.data = self.data.select(
+                [
+                    i
+                    for i in range(total)
+                    if self._tokenize(format_row(self.data[i])["prompt"])[
+                        "input_ids"
+                    ].shape[1]
+                    <= max_prompt_tokens
+                ]
+            )
+            print(
+                f"Kept {len(self.data)}/{total} {split} rows with prompts <= {max_prompt_tokens} tokens"
+            )
+
+    def _tokenize(self, prompt):
+        return self.tokenizer(
+            self.tokenizer.apply_chat_template(
+                prompt,
+                tokenize=False,
+                add_generation_prompt=True,
+            ),
+            return_tensors="pt",
+        )
 
     def __len__(self):
         return len(self.data)
@@ -49,14 +77,7 @@ class PaperInstructionDataset(Dataset):
             "item": row,
         }
         if self.tokenizer is not None:
-            tokenized = self.tokenizer(
-                self.tokenizer.apply_chat_template(
-                    data["prompt"],
-                    tokenize=False,
-                    add_generation_prompt=True,
-                ),
-                return_tensors="pt",
-            )
+            tokenized = self._tokenize(data["prompt"])
             data["input_ids"] = tokenized["input_ids"]
             data["attention_mask"] = tokenized["attention_mask"]
         return data
@@ -101,6 +122,7 @@ def get_dataloader(
     split="train",
     data_size=None,
     seed=SEED,
+    max_prompt_tokens=None,
     **kwargs,
 ):
     del kwargs
@@ -110,6 +132,7 @@ def get_dataloader(
         tokenizer=tokenizer,
         data_size=data_size,
         seed=seed,
+        max_prompt_tokens=max_prompt_tokens,
     )
     return DataLoader(
         dataset=dataset,

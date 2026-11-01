@@ -10,8 +10,8 @@ training:
   n_rollouts: 4
   temperature: 0.5
   eval_temperature: 0.2
-  batch_size: 8
-  gradient_accumulation_steps: 4
+  batch_size: 4  # 8 ran out of memory on a 44 GB L40S when a batch padded to a long sequence
+  gradient_accumulation_steps: 8
   learning_rate: 0.000005
   num_epochs: 3
   log_every: 1

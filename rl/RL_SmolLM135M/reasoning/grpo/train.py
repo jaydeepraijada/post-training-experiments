@@ -196,6 +196,8 @@ dataloader = paper_dataset.get_dataloader(
     split=config["data"].get("train_split", "train"),
     data_size=train_data_size,
     seed=train_dataset_seed,
+    # Leave room for the completion within the model's position limit.
+    max_prompt_tokens=llm.config.max_position_embeddings - max_new_tokens,
 )
 test_dataloader = paper_dataset.get_dataloader(
     dataset_name_or_path,
