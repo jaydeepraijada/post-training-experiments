@@ -4,7 +4,7 @@ GRPO on SmolLM-135M: teach the reasoning base model to produce better `<think>â€
 
 ## Results
 
-Best checkpoint: cycle 1,495 of about 1,500, from 24 hours on an H100 on Modal. Total Modal spend was $106, including crashed runs. All numbers use 256 held-out prompts.
+Best checkpoint: cycle 1,495 of about 1,500, published as [`JaydeepR/SmolLM-135M-neuraltxt-grpo-v1`](https://huggingface.co/JaydeepR/SmolLM-135M-neuraltxt-grpo-v1). It came from 24 hours on an H100 on Modal. Total Modal spend was $106, including crashed runs. All numbers use 256 held-out prompts.
 
 | Metric | Early (cycle 5) | Late (cycle 1,495â€“1,500) |
 |---|---|---|

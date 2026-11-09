@@ -21,7 +21,7 @@ The RL stage trains on a separate reasoning base model, not on the DPO model.
 | **CPT** | [`cpt/CPT_SmolLM135M`](cpt/CPT_SmolLM135M) | Continued pre-training on arXiv ML papers | [`JaydeepR/SmolLM-135M-CPT-LoRA-r32`](https://huggingface.co/JaydeepR/SmolLM-135M-CPT-LoRA-r32) |
 | **SFT** | [`sft/SFT_SmolLM135M`](sft/SFT_SmolLM135M) | Instruction tuning → `PaperResearcher` task API | [`JaydeepR/SmolLM-135M-SFT-exp01`](https://huggingface.co/JaydeepR/SmolLM-135M-SFT-exp01) |
 | **DPO** | [`dpo/DPO_SmolLM135M`](dpo/DPO_SmolLM135M) | Preference optimization (DPO/ORPO) | [`JaydeepR/SmolLM-135M-neuraltxt-dpo-v1`](https://huggingface.co/JaydeepR/SmolLM-135M-neuraltxt-dpo-v1) |
-| **RL** | [`rl/RL_SmolLM135M`](rl/RL_SmolLM135M) | GRPO on reasoning and output format | Cycle 1,495 LoRA adapter (not published) |
+| **RL** | [`rl/RL_SmolLM135M`](rl/RL_SmolLM135M) | GRPO on reasoning and output format | [`JaydeepR/SmolLM-135M-neuraltxt-grpo-v1`](https://huggingface.co/JaydeepR/SmolLM-135M-neuraltxt-grpo-v1) |
 
 Each stage folder has its own README with a quickstart. Derived from the [Neural Breakdown finetuning-recipes](https://github.com/avbiswas/finetuning_recipes) course.
 
